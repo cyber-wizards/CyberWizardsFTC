@@ -52,7 +52,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 //@Disabled
 public class TeleOpCWV1 extends LinearOpMode {
 
-    // Declare OpMode members.......
+    // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     DcMotor frontleft;
     DcMotor frontright;
