@@ -48,9 +48,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="FTCTeleOp1: Linear", group="Linear Opmode")
+@TeleOp(name="CW: Linear", group="Linear Opmode")
 //@Disabled
-public class FTCTeleOp1 extends LinearOpMode {
+public class CW extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
