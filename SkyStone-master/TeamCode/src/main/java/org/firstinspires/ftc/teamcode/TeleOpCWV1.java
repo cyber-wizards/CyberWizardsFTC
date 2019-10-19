@@ -48,20 +48,19 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="CW: Linear", group="Linear Opmode")
+@TeleOp(name="TeleOpCWV1", group="Linear Opmode")
 //@Disabled
-public class CW extends LinearOpMode {
+public class TeleOpCWV1 extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-     DcMotor frontleft;
-     DcMotor frontright;
-     DcMotor downleft;
-     DcMotor downright;
-     DcMotor GrabberMotor1;
-     DcMotor GrabberMotor2;
+    DcMotor frontleft;
+    DcMotor frontright;
+    DcMotor downleft;
+    DcMotor downright;
+    DcMotor GrabberMotor1;
+    DcMotor GrabberMotor2;
 
-     double power = 0.5;
 
     @Override
     public void runOpMode() {
@@ -71,7 +70,7 @@ public class CW extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        frontleft  = hardwareMap.get(DcMotor.class, "frontleft");
+        frontleft = hardwareMap.get(DcMotor.class, "frontleft");
         frontright = hardwareMap.get(DcMotor.class, "frontright");
         downleft = hardwareMap.get(DcMotor.class, "downleft");
         downright = hardwareMap.get(DcMotor.class, "downright");
@@ -112,6 +111,34 @@ public class CW extends LinearOpMode {
             downright.setPower(-gamepad1.right_stick_y);
             GrabberMotor1.setPower(-gamepad2.left_stick_y);
             GrabberMotor2.setPower(-gamepad2.right_stick_y);
+            
+            if(gamepad1.a) {
+                frontleft.setPower(1.0);
+                downleft.setPower(-1.0);
+                frontright.setPower(-1.0);
+                downright.setPower(1.0);
+            }
+            else
+            {
+                frontleft.setPower(0.0);
+                downleft.setPower(0.0);
+                frontright.setPower(0.0);
+                downright.setPower(0.0);
+            }
+            if(gamepad1.b) {
+                frontleft.setPower(-1.0);
+                downleft.setPower(1.0);
+                frontright.setPower(1.0);
+                downright.setPower(-1.0);
+            }
+            else
+            {
+                frontleft.setPower(0.0);
+                downleft.setPower(0.0);
+                frontright.setPower(0.0);
+                downright.setPower(0.0);
+            }
+
 
         }
     }
