@@ -58,6 +58,8 @@ public class CW extends LinearOpMode {
      DcMotor frontright;
      DcMotor downleft;
      DcMotor downright;
+     DcMotor GrabberMotor1;
+     DcMotor GrabberMotor2;
 
      double power = 0.5;
 
@@ -73,12 +75,17 @@ public class CW extends LinearOpMode {
         frontright = hardwareMap.get(DcMotor.class, "frontright");
         downleft = hardwareMap.get(DcMotor.class, "downleft");
         downright = hardwareMap.get(DcMotor.class, "downright");
+        GrabberMotor1 = hardwareMap.get(DcMotor.class, "GrabberMotor1");
+        GrabberMotor2 = hardwareMap.get(DcMotor.class, "GrabberMotor2");
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         frontleft.setDirection(DcMotor.Direction.FORWARD);
         frontright.setDirection(DcMotor.Direction.REVERSE);
         downleft.setDirection(DcMotor.Direction.FORWARD);
         downright.setDirection(DcMotor.Direction.REVERSE);
+        GrabberMotor1.setDirection(DcMotor.Direction.FORWARD);
+        GrabberMotor2.setDirection(DcMotor.Direction.REVERSE);
+
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -103,7 +110,8 @@ public class CW extends LinearOpMode {
             downleft.setPower(-gamepad1.left_stick_y);
             frontright.setPower(-gamepad1.right_stick_y);
             downright.setPower(-gamepad1.right_stick_y);
-
+            GrabberMotor1.setPower(-gamepad2.left_stick_y);
+            GrabberMotor2.setPower(-gamepad2.right_stick_y);
 
         }
     }
