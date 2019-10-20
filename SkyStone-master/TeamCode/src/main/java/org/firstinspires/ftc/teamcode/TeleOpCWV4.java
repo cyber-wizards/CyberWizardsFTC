@@ -49,9 +49,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="TeleOpCWV3", group="Linear Opmode")
+@TeleOp(name="TeleOpCWV4", group="Linear Opmode")
 //@Disabled
-public class TeleOpCWV3 extends LinearOpMode {
+public class TeleOpCWV4 extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -63,9 +63,10 @@ public class TeleOpCWV3 extends LinearOpMode {
     DcMotor GrabberMotor2;
     DcMotor Arm;
     Servo wrist;
+    Servo Collector;
 
-    double power  = 0.5;
     double wristPower = 0.0;
+    double CollectorPower = 0.0;
 
     @Override
     public void runOpMode() {
@@ -83,6 +84,7 @@ public class TeleOpCWV3 extends LinearOpMode {
         GrabberMotor2 = hardwareMap.get(DcMotor.class, "GrabberMotor2");
         Arm = hardwareMap.get(DcMotor.class, "Arm");
         wrist = hardwareMap.servo.get("wrist");
+        Collector = hardwareMap.servo.get("collector");
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         frontleft.setDirection(DcMotor.Direction.FORWARD);
@@ -161,6 +163,16 @@ public class TeleOpCWV3 extends LinearOpMode {
 
             }
             wrist.setPosition(wristPower);
+            if (gamepad1.y){
+                if (CollectorPower == 1.0){
+                    CollectorPower = 0.0;
+                }
+                else{
+                    CollectorPower = 1.0;
+                }
+
+            }
+            Collector.setPosition(CollectorPower);
 
         }
     }

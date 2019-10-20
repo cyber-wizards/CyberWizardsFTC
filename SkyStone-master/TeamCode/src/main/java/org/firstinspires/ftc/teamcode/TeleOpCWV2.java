@@ -118,7 +118,7 @@ public class TeleOpCWV2 extends LinearOpMode {
             downright.setPower(-gamepad1.right_stick_y);
             GrabberMotor1.setPower(-gamepad2.left_stick_y);
             GrabberMotor2.setPower(-gamepad2.right_stick_y);
-            Arm.setPower(-gamepad1.left_stick_x);
+            Arm.setPower((-gamepad1.left_stick_x/2));
 
             if(gamepad1.a) {
                 frontleft.setPower(1.0);
