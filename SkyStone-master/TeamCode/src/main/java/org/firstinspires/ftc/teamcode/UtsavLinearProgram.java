@@ -29,19 +29,19 @@ public class UtsavLinearProgram extends OpMode {
         RightBack = hardwareMap.dcMotor.get("");//Enter DC motor name
         LeftBack.setDirection(DcMotorSimple.Direction.REVERSE);
         LeftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        if (RightTrigger > 0){
+        if (RightTrigger > 0){//go left
             LeftFront.setPower(-1);
             LeftBack.setPower(1);
             RightBack.setPower(-1);
             RightFront.setPower(1);
         }
-        else if (LeftTrigger > 0){
+        else if (LeftTrigger > 0){//go right
             LeftFront.setPower(1);
             LeftBack.setPower(-1);
             RightBack.setPower(1);
             RightFront.setPower(-1);
         }
-        else{
+        else{//everything else
             LeftFront.setPower(LeftStickY);
             LeftBack.setPower(LeftStickY);
             RightBack.setPower(RightStickY);
