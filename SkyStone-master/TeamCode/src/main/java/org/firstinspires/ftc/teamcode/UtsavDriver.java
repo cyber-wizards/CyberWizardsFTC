@@ -19,6 +19,8 @@ public class UtsavDriver extends OpMode {
         DcMotor LeftBack;
         DcMotor RightFront;
         DcMotor RightBack;
+        double RightStickY = gamepad1.right_stick_y;
+        double LeftStickY = gamepad1.left_stick_y;
         double RightTrigger = gamepad1.right_trigger;
         double LeftTrigger = gamepad1.left_trigger;
         LeftFront = hardwareMap.dcMotor.get("");//Enter DC motor name
@@ -38,6 +40,12 @@ public class UtsavDriver extends OpMode {
             LeftBack.setPower(-1);
             RightBack.setPower(1);
             RightFront.setPower(-1);
+        }
+        else{
+            LeftFront.setPower(LeftStickY);
+            LeftBack.setPower(LeftStickY);
+            RightBack.setPower(RightStickY);
+            RightFront.setPower(RightStickY);
         }
     }
 }
