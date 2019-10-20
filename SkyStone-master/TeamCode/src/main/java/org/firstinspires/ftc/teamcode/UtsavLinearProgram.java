@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp(name="UtsavDrive")
-public class UtsavDriver extends OpMode {
+public class UtsavLinearProgram extends OpMode {
 
     @Override
     public void init() {
