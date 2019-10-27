@@ -34,6 +34,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 
 /**
@@ -49,9 +52,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="TeleOpCWV5", group="Linear Opmode")
+@TeleOp(name="TeleOpCWV6", group="Linear Opmode")
 //@Disabled
-public class TeleOpCWV5 extends LinearOpMode {
+public class TeleOpCWV6 extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -67,12 +70,8 @@ public class TeleOpCWV5 extends LinearOpMode {
     Servo FrontCollector;
     Servo FoundationGrabber1;
     Servo FoundationGrabber2;
-
-    double wristPower = 0.0;
-    double CollectorPower = 0.0;
-    double FrontCollectorPower = 0.0;
-    double FoundationGrabber1Power = 0.0;
-    double FoundationGrabber2Power = 1.0;
+    Servo Capstone;
+    Servo GrabberRamp;
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
@@ -93,6 +92,8 @@ public class TeleOpCWV5 extends LinearOpMode {
         FrontCollector = hardwareMap.servo.get("FrontCollector");
         FoundationGrabber1 = hardwareMap.servo.get("FoundationGrabber1");
         FoundationGrabber2 = hardwareMap.servo.get("FoundationGrabber2");
+        Capstone = hardwareMap.servo.get("Capstone");
+        GrabberRamp = hardwareMap.servo.get("GrabberRamp");
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         frontleft.setDirection(DcMotor.Direction.FORWARD);
@@ -103,119 +104,95 @@ public class TeleOpCWV5 extends LinearOpMode {
         GrabberMotor2.setDirection(DcMotor.Direction.REVERSE);
         Arm.setDirection(DcMotor.Direction.FORWARD);
 
+        FoundationGrabber1.setPosition(1.0);
+        FoundationGrabber2.setPosition(0.0);
+        FrontCollector.setPosition(1.0);
+        Collector.setPosition(1.0);
+        wrist.setPosition(0.93);
+        Capstone.setPosition(1.0);
+        GrabberRamp.setPosition(1.0);
 
 
-        // Wait for the game to start (driver presses PLAY)
+
         waitForStart();
         runtime.reset();
 
-        /*leftMotor.setPower(power);
-        rightMotor.setPower(power);
-
-        sleep(2000);
-
-        power = 0.0;
-
-        leftMotor.setPower(power);
-        rightMotor.setPower(power);*/
 
         while (opModeIsActive()) {
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
 
-            frontleft.setPower(-gamepad1.left_stick_y);
-            downleft.setPower(-gamepad1.left_stick_y);
-            frontright.setPower(-gamepad1.right_stick_y);
-            downright.setPower(-gamepad1.right_stick_y);
-            GrabberMotor1.setPower(-gamepad2.left_stick_y);
+            frontleft.setPower(gamepad1.left_stick_y);
+            downleft.setPower(gamepad1.left_stick_y);
+            frontright.setPower(gamepad1.right_stick_y);
+            downright.setPower(gamepad1.right_stick_y);
+
+
+            frontleft.setPower(gamepad1.right_trigger);
+            //We are moving the front left motor forward
+            downleft.setPower(-gamepad1.right_trigger);
+            //We are moving the back left motor backwards
+            frontright.setPower(-gamepad1.right_trigger);
+            //We are moving the front right motor backwards
+            downright.setPower(gamepad1.right_trigger);
+            //We are moving the back right motor forward
+            frontleft.setPower(-gamepad1.left_trigger);
+            //We are moving the front left motor backwards
+            downleft.setPower(gamepad1.left_trigger);
+            //We are moving the back left motor forward
+            frontright.setPower(gamepad1.left_trigger);
+            //We are moving the front right motor forward
+            downright.setPower(-gamepad1.left_trigger);
+            // We are moving the back right motor backwards.
+            if (gamepad1.left_bumper){
+                FoundationGrabber1.setPosition(0.0);
+                FoundationGrabber2.setPosition(1.0);
+            } else {
+                FoundationGrabber1.setPosition(1.0);
+                FoundationGrabber2.setPosition(0.0);
+
+            }
+            if (gamepad1.right_bumper){
+                FrontCollector.setPosition(0.0);
+            } else {
+                FrontCollector.setPosition(1.0);
+            }
+            GrabberMotor1.setPower(-gamepad2.right_stick_y);
             GrabberMotor2.setPower(-gamepad2.right_stick_y);
-            Arm.setPower(-gamepad2.left_stick_x/2);
+            Arm.setPower(-gamepad2.left_stick_y/1.5);
 
-
-
-            if(gamepad1.a) {
-                frontleft.setPower(1.0);
-                downleft.setPower(-1.0);
-                frontright.setPower(-1.0);
-                downright.setPower(1.0);
-            }
-            else
-            {
-                frontleft.setPower(0.0);
-                downleft.setPower(0.0);
-                frontright.setPower(0.0);
-                downright.setPower(0.0);
+            if(gamepad2.left_bumper){
+//
+                wrist.setPosition(0.0);
+            } else {
+                wrist.setPosition(0.93);
             }
 
-            if(gamepad1.b) {
-                frontleft.setPower(-1.0);
-                downleft.setPower(1.0);
-                frontright.setPower(1.0);
-                downright.setPower(-1.0);
-            }
-            else
-            {
-                frontleft.setPower(0.0);
-                downleft.setPower(0.0);
-                frontright.setPower(0.0);
-                downright.setPower(0.0);
-            }
-
-            if(gamepad2.a){
-                if (wristPower == 1.0){
-                    wristPower = 0.0;
-                }
-                else{
-                    wristPower = 1.0;
-                }
+            if (gamepad2.right_bumper){
+                Collector.setPosition(0.0);
+            } else {
+                Collector.setPosition(1.0);
 
             }
-            wrist.setPosition(wristPower);
-
-            if (gamepad2.b){
-                if (CollectorPower == 1.0){
-                    CollectorPower = 0.0;
-                }
-                else{
-                    CollectorPower = 1.0;
-                }
-
-            }
-            Collector.setPosition(CollectorPower);
 
             if (gamepad2.x){
-                if (FrontCollectorPower == 1.0){
-                    FrontCollectorPower = 0.0;
-                }
-                else{
-                    FrontCollectorPower = 1.0;
-                }
+                Capstone.setPosition(0.0);
+            } else {
+                Capstone.setPosition(1.0);
 
             }
-            FrontCollector.setPosition(FrontCollectorPower);
 
-            if (gamepad2.y){
-                if (FoundationGrabber1Power == 1.0){
-                    FoundationGrabber1Power = 0.0;
-                }
-                else{
-                    FoundationGrabber1Power = 1.0;
-                }
+            if (gamepad2.b){
+                GrabberRamp.setPosition(0.0);
+            } else {
+                GrabberRamp.setPosition(1.0);
 
             }
-            FoundationGrabber1.setPosition(FoundationGrabber1Power);
+            
 
-            if (gamepad2.y){
-                if (FoundationGrabber2Power == 1.0){
-                    FoundationGrabber2Power = 0.0;
-                }
-                else{
-                    FoundationGrabber2Power = 1.0;
-                }
 
-            }
-            FoundationGrabber2.setPosition(FoundationGrabber2Power);
+
 
 
 
