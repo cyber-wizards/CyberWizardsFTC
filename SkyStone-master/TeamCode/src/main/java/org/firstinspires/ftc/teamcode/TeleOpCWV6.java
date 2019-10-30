@@ -34,7 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
+
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -94,6 +94,7 @@ public class TeleOpCWV6 extends LinearOpMode {
         FoundationGrabber2 = hardwareMap.servo.get("FoundationGrabber2");
         Capstone = hardwareMap.servo.get("Capstone");
         GrabberRamp = hardwareMap.servo.get("GrabberRamp");
+
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         frontleft.setDirection(DcMotor.Direction.FORWARD);
@@ -189,7 +190,7 @@ public class TeleOpCWV6 extends LinearOpMode {
                 GrabberRamp.setPosition(1.0);
 
             }
-            
+
 
 
 
