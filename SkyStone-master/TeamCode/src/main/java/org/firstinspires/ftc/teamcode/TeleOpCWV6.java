@@ -111,7 +111,7 @@ public class TeleOpCWV6 extends LinearOpMode {
         Collector.setPosition(1.0);
         wrist.setPosition(0.93);
         Capstone.setPosition(1.0);
-        GrabberRamp.setPosition(1.0);
+        GrabberRamp.setPosition(0.0);
 
 
 
@@ -185,9 +185,9 @@ public class TeleOpCWV6 extends LinearOpMode {
             }
 
             if (gamepad2.b){
-                GrabberRamp.setPosition(0.0);
-            } else {
                 GrabberRamp.setPosition(1.0);
+            } else {
+                GrabberRamp.setPosition(0.0);
 
             }
 
