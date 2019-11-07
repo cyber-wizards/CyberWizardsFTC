@@ -48,16 +48,14 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 // ANMOL WAZ HERE
-@Autonomous(name="Forward2: Linear OpMode", group="Linear Opmode")
+@Autonomous(name="Test", group="Linear Opmode")
 //@Disabled
-public class ForwardLinear2 extends LinearOpMode {
+public class Test extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    DcMotor frontleft;
-    DcMotor frontright;
-    DcMotor downleft;
-    DcMotor downright;
+     DcMotor leftMotor;
+     DcMotor rightMotor;
 
 
      double power = 0.5;
@@ -70,33 +68,26 @@ public class ForwardLinear2 extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        frontleft = hardwareMap.get(DcMotor.class, "frontleft");
-        frontright = hardwareMap.get(DcMotor.class, "frontright");
-        downleft = hardwareMap.get(DcMotor.class, "downleft");
-        downright = hardwareMap.get(DcMotor.class, "downright");
+        leftMotor  = hardwareMap.get(DcMotor.class, "left_drive");
+        rightMotor = hardwareMap.get(DcMotor.class, "right_drive");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        frontleft.setDirection(DcMotor.Direction.FORWARD);
-        frontright.setDirection(DcMotor.Direction.REVERSE);
-        downleft.setDirection(DcMotor.Direction.FORWARD);
-        downright.setDirection(DcMotor.Direction.REVERSE);
+        leftMotor.setDirection(DcMotor.Direction.FORWARD);
+        rightMotor.setDirection(DcMotor.Direction.REVERSE);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
 
-        frontleft.setPower(power);
-        frontright.setPower(power);
-        downleft.setPower(power);
-        downright.setPower(power);
+        leftMotor.setPower(power);
+        rightMotor.setPower(power);
+
         sleep(2000);
 
         power = 0.0;
 
-        frontleft.setPower(power);
-        frontright.setPower(power);
-        downleft.setPower(power);
-        downright.setPower(power);
+        leftMotor.setPower(power);
+        rightMotor.setPower(power);
     }
 }

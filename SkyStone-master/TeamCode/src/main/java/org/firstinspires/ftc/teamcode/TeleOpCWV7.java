@@ -129,11 +129,20 @@ public class TeleOpCWV7 extends LinearOpMode {
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
-
-            frontleft.setPower(gamepad1.left_stick_y);
-            downleft.setPower(gamepad1.left_stick_y);
-            frontright.setPower(gamepad1.right_stick_y);
-            downright.setPower(gamepad1.right_stick_y);
+            if (gamepad1.left_stick_y > 0.0){
+                frontleft.setPower(1.0);
+                downleft.setPower(1.0);
+            } else{
+                frontleft.setPower(0.0);
+                downleft.setPower(0.0);
+            }
+            if (gamepad1.right_stick_y > 0.0){
+                frontright.setPower(1.0);
+                downright.setPower(1.0);
+            } else{
+                frontright.setPower(0.0);
+                downright.setPower(0.0);
+            }
 
             if (gamepad1.left_trigger > 0.0){
                 frontleft.setPower(1.0);
