@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
@@ -48,9 +49,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 // ANMOL WAZ HERE
-@Autonomous(name="Test2", group="Linear Opmode")
+@Autonomous(name="FrontCollector", group="Linear Opmode")
 //@Disabled
-public class ForwardLinear2 extends LinearOpMode {
+public class FrontCollector extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -58,46 +59,79 @@ public class ForwardLinear2 extends LinearOpMode {
     DcMotor frontright;
     DcMotor downleft;
     DcMotor downright;
+    Servo FrontCollector;
+
+    double power = 0.2;
 
 
-     double power = 0.5;
+
+
+
+
+
 
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-
-        // Initialize the hardware variables. Note that the strings used here as parameters
-        // to 'get' must correspond to the names assigned during the robot configuration
-        // step (using the FTC Robot Controller app on the phone).
         frontleft = hardwareMap.get(DcMotor.class, "frontleft");
         frontright = hardwareMap.get(DcMotor.class, "frontright");
         downleft = hardwareMap.get(DcMotor.class, "downleft");
         downright = hardwareMap.get(DcMotor.class, "downright");
+        FrontCollector = hardwareMap.servo.get("FrontCollector");
 
-        // Most robots need the motor on one side to be reversed to drive forward
-        // Reverse the motor that runs backwards when connected directly to the battery
         frontleft.setDirection(DcMotor.Direction.FORWARD);
         frontright.setDirection(DcMotor.Direction.REVERSE);
         downleft.setDirection(DcMotor.Direction.FORWARD);
         downright.setDirection(DcMotor.Direction.REVERSE);
 
-        // Wait for the game to start (driver presses PLAY)
+        FrontCollector.setPosition(1.0);
+
         waitForStart();
         runtime.reset();
 
-        frontleft.setPower(power);
-        frontright.setPower(power);
-        downleft.setPower(power);
-        downright.setPower(power);
-        sleep(2000);
+        frontleft.setPower(-power);
+        frontright.setPower(-power);
+        downright.setPower(-power);
+        downleft.setPower(-power);
+        sleep(225);
 
+        power = 0.4;
+        frontright.setPower(-power);
+        downright.setPower(-power);
+        sleep(1750);
+        power = 0.2;
+        frontleft.setPower(-power);
+        frontright.setPower(-power);
+        downright.setPower(-power);
+        downleft.setPower(-power);
+        sleep(750);
+        power = 0.4;
+        frontright.setPower(power);
+        downright.setPower(power);
+        sleep(1750);
+        power = 0.2;
+        frontleft.setPower(-power);
+        frontright.setPower(-power);
+        downright.setPower(-power);
+        downleft.setPower(-power);
+        sleep(1000);
+        FrontCollector.setPosition(0.0);
         power = 0.0;
-
         frontleft.setPower(power);
         frontright.setPower(power);
-        downleft.setPower(power);
         downright.setPower(power);
+        downleft.setPower(power);
+
+
+
+
+
+
+
+        // Initialize the hardware variables. Note that the strings used here as parameters
+        // to 'get' must correspond to the names assigned during the robot configuration
+        // step (using the FTC Robot Controller app on the phone).
 
     }
 }

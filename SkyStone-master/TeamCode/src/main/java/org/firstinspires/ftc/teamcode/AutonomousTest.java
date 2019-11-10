@@ -89,12 +89,14 @@ public class AutonomousTest extends LinearOpMode {
         FoundationGrabber2.setPosition(0.0);
 
 
-        if (digitalTouch.getState() == true) {
+        if (digitalTouch.getState() == false) {
             telemetry.addData("Digital Touch", "Is Not Pressed");
             frontleft.setPower(power);
             frontright.setPower(power);
             downleft.setPower(power);
             downright.setPower(power);
+            sleep(1273);
+
         } else {
             telemetry.addData("Digital Touch", "Is Pressed");
             frontleft.setPower(0.0);
