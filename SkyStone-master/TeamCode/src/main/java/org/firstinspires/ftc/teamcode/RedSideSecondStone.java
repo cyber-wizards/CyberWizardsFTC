@@ -61,9 +61,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="StoneGrabberAutonomous", group="Pushbot")
+@Autonomous(name="RedSideSecondStone", group="Pushbot")
 //@Disabled
-public class StoneGrabberAutonomous extends LinearOpMode {
+public class RedSideSecondStone extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareTest         robot   = new HardwareTest();   // Use a Pushbot's hardware
@@ -76,9 +76,9 @@ public class StoneGrabberAutonomous extends LinearOpMode {
                                                       (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double     DRIVE_SPEED             = 0.5;
     static final double     TURN_SPEED              = 0.5;
-
-
-
+    static final double     DRIVE_SPEED2            = 0.45;
+    static final double     TURN_SPEED2             = 0.3;
+    static final double     DRIVE_SPEED3            = 0.2;
 
     @Override
     public void runOpMode() {
@@ -117,12 +117,21 @@ public class StoneGrabberAutonomous extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  -36,  -36, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-        encoderDrive(TURN_SPEED, 32,-32,5.0);
-        encoderDrive(DRIVE_SPEED,-20,-20,2.5);
-        encoderDrive(TURN_SPEED, -32,32,5.0);
-        encoderDrive(DRIVE_SPEED,-13,-13,5.0);
+        encoderDrive(DRIVE_SPEED,  -18,  -18, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+        encoderDrive(TURN_SPEED, 30,-30,5.0);
+        encoderDrive(DRIVE_SPEED,-10,-10,2.5);
+        encoderDrive(TURN_SPEED, -31,30,5.0);
+        encoderDrive(DRIVE_SPEED,-16,-16,5.0);
         robot.FrontCollector.setPosition(0.0);
+        sleep(1000);
+        encoderDrive(DRIVE_SPEED3,20,20,5.0);
+        encoderDrive(TURN_SPEED2, -36,36,5.0);
+        encoderDrive(DRIVE_SPEED2,-76,-76,5.0);
+        robot.FrontCollector.setPosition(1.0);
+        sleep(1000);
+        encoderDrive(DRIVE_SPEED,12,12,5.0);
+
+
 
 
 
