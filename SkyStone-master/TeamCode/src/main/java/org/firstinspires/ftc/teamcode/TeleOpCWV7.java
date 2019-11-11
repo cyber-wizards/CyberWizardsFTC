@@ -175,13 +175,13 @@ public class TeleOpCWV7 extends LinearOpMode {
                 downright.setPower(0.0);
             }
             if (gamepad1.right_trigger > 0.0) {
-                frontleft.setPower(-0.9);
+                frontleft.setPower(-1.0);
                 //We are moving the front left motor backwards
                 downleft.setPower(1.0);
                 //We are moving the back left motor forward
-                frontright.setPower(0.9);
+                frontright.setPower(1.0);
                 //We are moving the front right motor forward
-                downright.setPower(-0.9);
+                downright.setPower(-1.0);
                 // We are moving the back right motor backwards.
             }else{
                 frontleft.setPower(0.0);
