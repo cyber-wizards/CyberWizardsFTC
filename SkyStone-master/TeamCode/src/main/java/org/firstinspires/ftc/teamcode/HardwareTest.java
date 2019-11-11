@@ -92,6 +92,7 @@ public class HardwareTest
         downleft.setDirection(DcMotor.Direction.FORWARD);
         downright.setDirection(DcMotor.Direction.REVERSE);
 
+        FrontCollector.setPosition(1.0` `);
 
 
 

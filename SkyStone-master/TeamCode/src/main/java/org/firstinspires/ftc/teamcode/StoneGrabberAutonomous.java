@@ -74,7 +74,7 @@ public class StoneGrabberAutonomous extends LinearOpMode {
     static final double     WHEEL_DIAMETER_INCHES   = 3.5 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
                                                       (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     DRIVE_SPEED             = 0.6;
+    static final double     DRIVE_SPEED             = 0.5;
     static final double     TURN_SPEED              = 0.5;
 
 
@@ -118,10 +118,11 @@ public class StoneGrabberAutonomous extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         encoderDrive(DRIVE_SPEED,  -36,  -36, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-        encoderDrive(TURN_SPEED, -12,12,5.0);
-        encoderDrive(DRIVE_SPEED,-12,-12,2.5);
-        encoderDrive(TURN_SPEED, 12,-12,5.0);
-        encoderDrive(DRIVE_SPEED,5,5,5.0);
+        encoderDrive(TURN_SPEED, 32,-32,5.0);
+        encoderDrive(DRIVE_SPEED,-20,-20,2.5);
+        encoderDrive(TURN_SPEED, -32,32,5.0);
+        encoderDrive(DRIVE_SPEED,-13,-13,5.0);
+        robot.FrontCollector.setPosition(0.0);
 
 
 
@@ -165,7 +166,6 @@ public class StoneGrabberAutonomous extends LinearOpMode {
             robot.frontright.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.downleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.downright.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
             // reset the timeout time and start motion.
             runtime.reset();
             robot.frontleft.setPower(Math.abs(speed));
