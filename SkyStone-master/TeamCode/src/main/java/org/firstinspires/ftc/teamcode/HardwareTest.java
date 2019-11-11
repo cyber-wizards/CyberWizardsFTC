@@ -57,6 +57,10 @@ public class HardwareTest
     public DcMotor  frontright  = null;
     public DcMotor  downleft  = null;
     public DcMotor  downright  = null;
+    public Servo FrontCollector = null;
+
+
+
 
 
 
@@ -64,8 +68,10 @@ public class HardwareTest
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
 
+
     /* Constructor */
     public HardwareTest(){
+
 
     }
 
@@ -79,16 +85,24 @@ public class HardwareTest
         downleft = hwMap.get(DcMotor.class, "downleft");
         frontright = hwMap.get(DcMotor.class, "frontright");
         downright = hwMap.get(DcMotor.class, "downright");
+        FrontCollector = hwMap.get(Servo.class,"FrontCollector");
 
         frontleft.setDirection(DcMotor.Direction.FORWARD);
         frontright.setDirection(DcMotor.Direction.REVERSE);
         downleft.setDirection(DcMotor.Direction.FORWARD);
         downright.setDirection(DcMotor.Direction.REVERSE);
+
+
+
+
+
         // Set all motors to zero power
         frontleft.setPower(0.0);
         frontright.setPower(0.0);
         downleft.setPower(0.0);
         downleft.setPower(0.0);
+
+
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
         frontleft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

@@ -202,8 +202,18 @@ public class TeleOpCWV7 extends LinearOpMode {
             } else {
                 FrontCollector.setPosition(1.0);
             }
-            GrabberMotor1.setPower(-gamepad2.right_stick_y);
-            GrabberMotor2.setPower(-gamepad2.right_stick_y);
+            if(-gamepad2.right_stick_y > 0.0){
+                GrabberMotor1.setPower(1.0);
+                GrabberMotor2.setPower(1.0);
+                GrabberRamp.setPosition(1.0);
+            }else{
+                GrabberMotor1.setPower(0.0);
+                GrabberMotor2.setPower(0.0);
+                GrabberRamp.setPosition(0.0);
+            }
+
+
+
             Arm.setPower(-gamepad2.left_stick_y/1.5);
 
             if(gamepad2.left_bumper){
