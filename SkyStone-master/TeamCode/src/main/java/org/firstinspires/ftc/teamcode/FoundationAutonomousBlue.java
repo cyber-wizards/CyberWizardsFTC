@@ -61,9 +61,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="RedSideFirstStone", group="Pushbot")
+@Autonomous(name="FoundationAutonomousBlue", group="Pushbot")
 //@Disabled
-public class RedSideFirstStone extends LinearOpMode {
+public class FoundationAutonomousBlue extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareTest         robot   = new HardwareTest();   // Use a Pushbot's hardware
@@ -77,7 +77,6 @@ public class RedSideFirstStone extends LinearOpMode {
     static final double     DRIVE_SPEED             = 0.5;
     static final double     TURN_SPEED              = 0.5;
     static final double     DRIVE_SPEED2            = 0.45;
-    static final double     TURN_SPEED2             = 0.3;
     static final double     DRIVE_SPEED3            = 0.2;
 
     @Override
@@ -117,15 +116,29 @@ public class RedSideFirstStone extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  -30.5,  -30, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-        robot.FrontCollector.setPosition(0.0);
+        encoderDrive(DRIVE_SPEED,  -18,  -18, 5.0);
+        encoderDrive(TURN_SPEED, 36,-36,5.0);
+        encoderDrive(DRIVE_SPEED,  -16,  -16, 5.0);
+        encoderDrive(TURN_SPEED, -38,36,5.0);
+        encoderDrive(DRIVE_SPEED,-24,-24,5.0);
+        encoderDrive(DRIVE_SPEED3,-2,-2,5.0);
+        robot.FoundationGrabber1.setPosition(0.0);
+        robot.FoundationGrabber2.setPosition(1.0);
         sleep(1000);
-        encoderDrive(DRIVE_SPEED3,20,20,5.0);
-        encoderDrive(TURN_SPEED2, -36,36,5.0);
-        encoderDrive(DRIVE_SPEED2,-64,-64,5.0);
-        robot.FrontCollector.setPosition(1.0);
+        encoderDrive(DRIVE_SPEED2,52,52,10.0);
+        robot.FoundationGrabber1.setPosition(1.0);
+        robot.FoundationGrabber2.setPosition(0.0);
         sleep(1000);
-        encoderDrive(DRIVE_SPEED,12,12,5.0);
+        robot.frontleft.setPower(-1.0);
+        //We are moving the front left motor forward
+        robot.downleft.setPower(1.0);
+        //We are moving the back left motor backwards
+        robot.frontright.setPower(1.0);
+        //We are moving the front right motor backwards
+        robot.downright.setPower(-1.0);
+        sleep(1250);
+        //We are moving the back right motor forward
+
 
 
 

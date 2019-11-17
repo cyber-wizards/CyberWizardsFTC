@@ -58,6 +58,8 @@ public class HardwareTest
     public DcMotor  downleft  = null;
     public DcMotor  downright  = null;
     public Servo FrontCollector = null;
+    Servo FoundationGrabber1 = null;
+    Servo FoundationGrabber2 = null;
 
 
 
@@ -86,6 +88,9 @@ public class HardwareTest
         frontright = hwMap.get(DcMotor.class, "frontright");
         downright = hwMap.get(DcMotor.class, "downright");
         FrontCollector = hwMap.get(Servo.class,"FrontCollector");
+        FoundationGrabber1 = hwMap.get(Servo.class,"FoundationGrabber1");
+        FoundationGrabber2 = hwMap.get(Servo.class,"FoundationGrabber2");
+
 
         frontleft.setDirection(DcMotor.Direction.FORWARD);
         frontright.setDirection(DcMotor.Direction.REVERSE);
@@ -93,6 +98,9 @@ public class HardwareTest
         downright.setDirection(DcMotor.Direction.REVERSE);
 
         FrontCollector.setPosition(1.0);
+        FoundationGrabber1.setPosition(1.0);
+        FoundationGrabber2.setPosition(0.0);
+
 
 
 

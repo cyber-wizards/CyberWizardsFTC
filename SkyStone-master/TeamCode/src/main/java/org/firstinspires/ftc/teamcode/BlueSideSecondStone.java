@@ -61,9 +61,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="RedSideFirstStone", group="Pushbot")
+@Autonomous(name="BlueSideSecondStone", group="Pushbot")
 //@Disabled
-public class RedSideFirstStone extends LinearOpMode {
+public class BlueSideSecondStone extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareTest         robot   = new HardwareTest();   // Use a Pushbot's hardware
@@ -117,16 +117,21 @@ public class RedSideFirstStone extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  -30.5,  -30, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+        encoderDrive(DRIVE_SPEED,  -18,  -18, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+        encoderDrive(TURN_SPEED, -30,30,5.0);
+        encoderDrive(DRIVE_SPEED,-15,-15,2.5);
+        encoderDrive(TURN_SPEED, 31,-30,5.0);
+        encoderDrive(DRIVE_SPEED,-14,-14,5.0);
+        encoderDrive(TURN_SPEED, 0,-10,5.0);
+        encoderDrive(TURN_SPEED, 0,10,5.0);
         robot.FrontCollector.setPosition(0.0);
         sleep(1000);
         encoderDrive(DRIVE_SPEED3,20,20,5.0);
-        encoderDrive(TURN_SPEED2, -36,36,5.0);
-        encoderDrive(DRIVE_SPEED2,-64,-64,5.0);
+        encoderDrive(TURN_SPEED2, 36,-36,5.0);
+        encoderDrive(DRIVE_SPEED2,-76,-76,5.0);
         robot.FrontCollector.setPosition(1.0);
         sleep(1000);
-        encoderDrive(DRIVE_SPEED,12,12,5.0);
-
+        encoderDrive(DRIVE_SPEED,20,20,5.0);
 
 
 
