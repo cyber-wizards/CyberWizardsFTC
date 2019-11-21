@@ -122,10 +122,8 @@ public class BlueSideThirdStone extends LinearOpMode {
         encoderDrive(DRIVE_SPEED,-25,-25,2.5);
         encoderDrive(TURN_SPEED, 31,-30,5.0);
         encoderDrive(DRIVE_SPEED,-16,-16,5.0);
-        encoderDrive(TURN_SPEED, -3,0,5.0);
-        encoderDrive(TURN_SPEED, 3,0,5.0);
-        encoderDrive(TURN_SPEED, 0,-3,5.0);
-        encoderDrive(TURN_SPEED, 0,3,5.0);
+        encoderDrive(TURN_SPEED, 0,-5,5.0);
+        encoderDrive(TURN_SPEED, 0,5,5.0);
         robot.FrontCollector.setPosition(0.0);
         sleep(1000);
         encoderDrive(DRIVE_SPEED3,20,20,5.0);
@@ -133,7 +131,7 @@ public class BlueSideThirdStone extends LinearOpMode {
         encoderDrive(DRIVE_SPEED2,-72,-72,5.0);
         robot.FrontCollector.setPosition(1.0);
         sleep(1000);
-        encoderDrive(DRIVE_SPEED,20,20,5.0);
+        encoderDrive(DRIVE_SPEED,15,15,5.0);
 
 
 

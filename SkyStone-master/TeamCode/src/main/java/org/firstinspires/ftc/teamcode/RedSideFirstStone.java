@@ -75,7 +75,6 @@ public class RedSideFirstStone extends LinearOpMode {
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
                                                       (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double     DRIVE_SPEED             = 0.5;
-    static final double     TURN_SPEED              = 0.5;
     static final double     DRIVE_SPEED2            = 0.45;
     static final double     TURN_SPEED2             = 0.3;
     static final double     DRIVE_SPEED3            = 0.2;
@@ -117,7 +116,7 @@ public class RedSideFirstStone extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  -30.5,  -30, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+        encoderDrive(DRIVE_SPEED,  -32.5,  -32, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
         robot.FrontCollector.setPosition(0.0);
         sleep(1000);
         encoderDrive(DRIVE_SPEED3,20,20,5.0);

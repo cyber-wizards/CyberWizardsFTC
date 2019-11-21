@@ -119,17 +119,17 @@ public class RedSideThirdStone extends LinearOpMode {
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         encoderDrive(DRIVE_SPEED,  -18,  -18, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
         encoderDrive(TURN_SPEED, 30,-30,5.0);
-        encoderDrive(DRIVE_SPEED,-18,-18,2.5);
+        encoderDrive(DRIVE_SPEED,-22,-22,2.5);
         encoderDrive(TURN_SPEED, -31,30,5.0);
         encoderDrive(DRIVE_SPEED,-16,-16,5.0);
         robot.FrontCollector.setPosition(0.0);
         sleep(1000);
         encoderDrive(DRIVE_SPEED3,20,20,5.0);
         encoderDrive(TURN_SPEED2, -36,36,5.0);
-        encoderDrive(DRIVE_SPEED2,-76,-76,5.0);
+        encoderDrive(DRIVE_SPEED2,-84,-84,5.0);
         robot.FrontCollector.setPosition(1.0);
         sleep(1000);
-        encoderDrive(DRIVE_SPEED,10,10,5.0);
+        encoderDrive(DRIVE_SPEED,12,12,5.0);
 
 
 
