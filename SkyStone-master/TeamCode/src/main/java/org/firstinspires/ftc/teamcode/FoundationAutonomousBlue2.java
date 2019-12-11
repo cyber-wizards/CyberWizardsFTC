@@ -30,12 +30,9 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
@@ -64,9 +61,9 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="ForwardDriveByEncoder", group="Pushbot")
+@Autonomous(name="FoundationAutonomousBlue2", group="Pushbot")
 //@Disabled
-public class ForwardDriveByEncoder extends LinearOpMode {
+public class FoundationAutonomousBlue2 extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareTest         robot   = new HardwareTest();   // Use a Pushbot's hardware
@@ -77,8 +74,10 @@ public class ForwardDriveByEncoder extends LinearOpMode {
     static final double     WHEEL_DIAMETER_INCHES   = 3.5 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
                                                       (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     DRIVE_SPEED             = 0.6;
+    static final double     DRIVE_SPEED             = 0.5;
     static final double     TURN_SPEED              = 0.5;
+    static final double     DRIVE_SPEED2            = 0.45;
+    static final double     DRIVE_SPEED3            = 0.2;
 
     @Override
     public void runOpMode() {
@@ -117,7 +116,36 @@ public class ForwardDriveByEncoder extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  -36,  -36, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+        encoderDrive(DRIVE_SPEED,-19,-19,-19,-19,5.0);
+        encoderDrive(TURN_SPEED,36,-36,36,-36,5.0);
+        encoderDrive(DRIVE_SPEED,-16,-16,-16,-16,5.0);
+        encoderDrive(TURN_SPEED,-38,36,-38,36,5.0);
+        encoderDrive(DRIVE_SPEED,-24,-24,-24,-24,5.0);
+        encoderDrive(DRIVE_SPEED3,-2,-2,-2,-2,5.0);
+        robot.FoundationGrabber1.setPosition(0.0);
+        robot.FoundationGrabber2.setPosition(1.0);
+        sleep(1000);
+        encoderDrive(DRIVE_SPEED2,52,52,52,52,10.0);
+        robot.FoundationGrabber1.setPosition(1.0);
+        robot.FoundationGrabber2.setPosition(0.0);
+        sleep(1000);
+        robot.frontleft.setPower(-1.0);
+        //We are moving the front left motor forward
+        robot.downleft.setPower(1.0);
+        //We are moving the back left motor backwards
+        robot.frontright.setPower(1.0);
+        //We are moving the front right motor backwards
+        robot.downright.setPower(-1.0);
+        sleep(1320);
+        //We are moving the back right motor forward
+
+
+
+
+
+
+
+
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -132,7 +160,7 @@ public class ForwardDriveByEncoder extends LinearOpMode {
      *  3) Driver stops the opmode running.
      */
     public void encoderDrive(double speed,
-                             double leftInches, double rightInches,
+                             double frontleftInches, double frontrightInches,double downleftInches, double downrightInches,
                              double timeoutS) {
         int newfrontleftTarget;
         int newfrontrightTarget;
@@ -142,11 +170,12 @@ public class ForwardDriveByEncoder extends LinearOpMode {
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
+
             // Determine new target position, and pass to motor controller
-            newfrontleftTarget = robot.frontleft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newfrontrightTarget = robot.frontright.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
-            newdownleftTarget = robot.downleft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newdownrightTarget = robot.downright.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            newfrontleftTarget = robot.frontleft.getCurrentPosition() + (int)(frontleftInches * COUNTS_PER_INCH);
+            newfrontrightTarget = robot.frontright.getCurrentPosition() + (int)(frontrightInches * COUNTS_PER_INCH);
+            newdownleftTarget = robot.downleft.getCurrentPosition() + (int)(downleftInches * COUNTS_PER_INCH);
+            newdownrightTarget = robot.downright.getCurrentPosition() + (int)(downrightInches * COUNTS_PER_INCH);
             robot.frontleft.setTargetPosition(newfrontleftTarget);
             robot.frontright.setTargetPosition(newfrontrightTarget);
             robot.downleft.setTargetPosition(newdownleftTarget);
@@ -157,13 +186,13 @@ public class ForwardDriveByEncoder extends LinearOpMode {
             robot.frontright.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.downleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.downright.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
             // reset the timeout time and start motion.
             runtime.reset();
             robot.frontleft.setPower(Math.abs(speed));
             robot.frontright.setPower(Math.abs(speed));
             robot.downleft.setPower(Math.abs(speed));
             robot.downright.setPower(Math.abs(speed));
+
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
@@ -174,7 +203,9 @@ public class ForwardDriveByEncoder extends LinearOpMode {
             while (opModeIsActive() &&
                    (runtime.seconds() < timeoutS) &&
                    (robot.frontleft.isBusy() && robot.frontright.isBusy()
-                           && robot.downleft.isBusy() && robot.downright.isBusy())) {
+                           && robot.downleft.isBusy() && robot.downright.isBusy()))
+
+            {
 
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d", newfrontleftTarget,
@@ -187,11 +218,14 @@ public class ForwardDriveByEncoder extends LinearOpMode {
                 telemetry.update();
             }
 
+
+
             // Stop all motion;
             robot.frontleft.setPower(0);
             robot.frontright.setPower(0);
             robot.downleft.setPower(0);
             robot.downright.setPower(0);
+
 
             // Turn off RUN_TO_POSITION
             robot.frontleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -199,7 +233,10 @@ public class ForwardDriveByEncoder extends LinearOpMode {
             robot.downleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.downright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+
             //  sleep(250);   // optional pause after each move
         }
+
     }
+
 }

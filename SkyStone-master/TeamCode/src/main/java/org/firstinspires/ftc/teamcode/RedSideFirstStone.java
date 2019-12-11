@@ -132,6 +132,7 @@ public class RedSideFirstStone extends LinearOpMode {
 
 
 
+
         telemetry.addData("Path", "Complete");
         telemetry.update();
     }

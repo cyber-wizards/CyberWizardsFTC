@@ -116,7 +116,8 @@ public class FoundationAutonomousBlue extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  -18,  -18, 5.0);
+
+        encoderDrive(DRIVE_SPEED,  -19,  -19, 5.0);
         encoderDrive(TURN_SPEED, 36,-36,5.0);
         encoderDrive(DRIVE_SPEED,  -16,  -16, 5.0);
         encoderDrive(TURN_SPEED, -38,36,5.0);
@@ -136,8 +137,9 @@ public class FoundationAutonomousBlue extends LinearOpMode {
         robot.frontright.setPower(1.0);
         //We are moving the front right motor backwards
         robot.downright.setPower(-1.0);
-        sleep(1250);
+        sleep(1320);
         //We are moving the back right motor forward
+
 
 
 
