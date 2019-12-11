@@ -114,7 +114,14 @@ public class TestingColorREV extends LinearOpMode {
 
 
 
+        if(sensorColor.red()>=2)
+        {
 
+
+        }
+        else
+        {
+        }
         // wait for the start button to be pressed.
         waitForStart();
 

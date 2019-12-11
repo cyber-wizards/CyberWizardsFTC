@@ -84,8 +84,7 @@ public class FoundationAutonomousBlue4 extends LinearOpMode {
 
     final double SCALE_FACTOR = 255;
 
-    int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
-    final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
+
     HardwareTest         robot   = new HardwareTest();   // Use a Pushbot's hardware
     private ElapsedTime     runtime = new ElapsedTime();
 
@@ -106,6 +105,7 @@ public class FoundationAutonomousBlue4 extends LinearOpMode {
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
          */
+
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
@@ -252,7 +252,8 @@ public class FoundationAutonomousBlue4 extends LinearOpMode {
             telemetry.addData("Green", sensorColor.green());
             telemetry.addData("Blue ", sensorColor.blue());
             telemetry.addData("Hue", hsvValues[0]);
-
+            int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
+            final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
             // change the background color to match the color detected by the RGB sensor.
             // pass a reference to the hue, saturation, and value array as an argument
             // to the HSVToColor method.
