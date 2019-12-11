@@ -77,6 +77,7 @@ public class HardwareTest
     private ElapsedTime period  = new ElapsedTime();
 
 
+
     /* Constructor */
     public HardwareTest(){
 
@@ -98,6 +99,7 @@ public class HardwareTest
         FoundationGrabber2 = hardwareMap.get(Servo.class,"FoundationGrabber2");
         sensorColor = hardwareMap.get(ColorSensor.class, "color");
         sensorDistance = hardwareMap.get(DistanceSensor.class, "color");
+
 
 
         frontleft.setDirection(DcMotor.Direction.FORWARD);

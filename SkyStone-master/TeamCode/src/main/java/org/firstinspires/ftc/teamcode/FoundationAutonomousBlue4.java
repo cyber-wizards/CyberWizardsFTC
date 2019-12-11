@@ -284,11 +284,14 @@ public class FoundationAutonomousBlue4 extends LinearOpMode {
 
             //  sleep(250);   // optional pause after each move
         }
+        int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
+        final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
         relativeLayout.post(new Runnable() {
             public void run() {
                 relativeLayout.setBackgroundColor(Color.WHITE);
             }
         });
+
     }
 
 }
