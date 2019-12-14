@@ -235,11 +235,11 @@ public class FoundationAutonomousBlue4 extends LinearOpMode {
                                             robot.downleft.getCurrentPosition(),
                                             robot.downright.getCurrentPosition());
 
-                Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
+                /*Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
                         (int) (sensorColor.green() * SCALE_FACTOR),
                         (int) (sensorColor.blue() * SCALE_FACTOR),
-                        hsvValues);
-                telemetry.addData("Alpha", sensorColor.alpha());
+                        hsvValues);*/
+
                 telemetry.addData("Red  ", sensorColor.red());
                 telemetry.addData("Green", sensorColor.green());
                 telemetry.addData("Blue ", sensorColor.blue());
