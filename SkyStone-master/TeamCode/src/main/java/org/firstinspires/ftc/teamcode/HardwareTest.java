@@ -59,21 +59,21 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 public class HardwareTest
 {
     /* Public OpMode members. */
-     DcMotor  frontleft;
-     DcMotor  frontright;
-     DcMotor  downleft;
-     DcMotor  downright;
-    Servo FrontCollector;
-    Servo FoundationGrabber1;
-    Servo FoundationGrabber2;
-    ColorSensor sensorColor;
-    DistanceSensor sensorDistance;
+     public DcMotor  frontleft = null;
+     public DcMotor  frontright = null;
+     public DcMotor  downleft = null;
+     public DcMotor  downright = null;
+     public Servo FrontCollector = null;
+     public Servo FoundationGrabber1 = null;
+     public Servo FoundationGrabber2 = null;
+     public ColorSensor sensorColor;
+     public DistanceSensor sensorDistance = null;
 
 
 
 
     /* local OpMode members. */
-    HardwareMap hardwareMap;
+    HardwareMap hwMap = null;
     private ElapsedTime period  = new ElapsedTime();
 
 
@@ -85,20 +85,20 @@ public class HardwareTest
     }
 
     /* Initialize standard Hardware interfaces */
-    public void init(HardwareMap ahwMap) {
+    public void init(HardwareMap hwMap) {
         // Save reference to Hardware map
-        hardwareMap = ahwMap;
+        hwMap = hwMap;
 
         // Define and Initialize Motors
-        frontleft = hardwareMap.get(DcMotor.class, "frontleft");
-        downleft = hardwareMap.get(DcMotor.class, "downleft");
-        frontright = hardwareMap.get(DcMotor.class, "frontright");
-        downright = hardwareMap.get(DcMotor.class, "downright");
-        FrontCollector = hardwareMap.get(Servo.class,"FrontCollector");
-        FoundationGrabber1 = hardwareMap.get(Servo.class,"FoundationGrabber1");
-        FoundationGrabber2 = hardwareMap.get(Servo.class,"FoundationGrabber2");
-        sensorColor = hardwareMap.get(ColorSensor.class, "color");
-        sensorDistance = hardwareMap.get(DistanceSensor.class, "color");
+        frontleft = hwMap.get(DcMotor.class, "frontleft");
+        downleft = hwMap.get(DcMotor.class, "downleft");
+        frontright = hwMap.get(DcMotor.class, "frontright");
+        downright = hwMap.get(DcMotor.class, "downright");
+        FrontCollector = hwMap.get(Servo.class,"FrontCollector");
+        FoundationGrabber1 = hwMap.get(Servo.class,"FoundationGrabber1");
+        FoundationGrabber2 = hwMap.get(Servo.class,"FoundationGrabber2");
+        sensorColor = hwMap.get(ColorSensor.class, "color");
+        sensorDistance = hwMap.get(DistanceSensor.class, "color");
 
 
 
@@ -111,11 +111,6 @@ public class HardwareTest
         FoundationGrabber1.setPosition(1.0);
         FoundationGrabber2.setPosition(0.0);
 
-        float hsvValues[] = {0F, 0F, 0F};
-
-        final float values[] = hsvValues;
-
-        final double SCALE_FACTOR = 255;
 
 
 

@@ -85,6 +85,8 @@ public class FoundationAutonomousBlue4 extends LinearOpMode {
     final double SCALE_FACTOR = 255;
 
 
+
+
     HardwareTest         robot   = new HardwareTest();   // Use a Pushbot's hardware
     private ElapsedTime     runtime = new ElapsedTime();
 
@@ -107,6 +109,8 @@ public class FoundationAutonomousBlue4 extends LinearOpMode {
          */
 
         robot.init(hardwareMap);
+
+
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
@@ -150,16 +154,8 @@ public class FoundationAutonomousBlue4 extends LinearOpMode {
         encoderDrive(DRIVE_SPEED4,-98,98,98,-98,10.0);
         encoderDrive(DRIVE_SPEED3,5,5,5,5,5.0);
         encoderDrive(DRIVE_SPEED,-27,-27,-27,-27,5.0);
-        if(robot.sensorColor.red()>=2)
-        {
-            robot.FrontCollector.setPosition(0.0);
 
-        }
-        else
-        {
-            encoderDrive(DRIVE_SPEED4,-33,33,33,-33,10.0);
-        }
-        encoderDrive(DRIVE_SPEED4,75,-75,-75,75,10.0);
+
 
 
 
@@ -229,6 +225,7 @@ public class FoundationAutonomousBlue4 extends LinearOpMode {
 
             {
 
+
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d", newfrontleftTarget,
                         newfrontrightTarget,newdownleftTarget,newdownrightTarget);
@@ -237,21 +234,25 @@ public class FoundationAutonomousBlue4 extends LinearOpMode {
                                             robot.frontright.getCurrentPosition(),
                                             robot.downleft.getCurrentPosition(),
                                             robot.downright.getCurrentPosition());
+
+                /*Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
+                        (int) (sensorColor.green() * SCALE_FACTOR),
+                        (int) (sensorColor.blue() * SCALE_FACTOR),
+                        hsvValues);
+                telemetry.addData("Alpha", sensorColor.alpha());
+                telemetry.addData("Red  ", sensorColor.red());
+                telemetry.addData("Green", sensorColor.green());
+                telemetry.addData("Blue ", sensorColor.blue());
+                telemetry.addData("Hue", hsvValues[0]);
                 telemetry.update();
+                telemetry.addData("Distance (cm)",
+                        String.format(Locale.US, "%.02f", sensorDistance.getDistance(DistanceUnit.CM)));*/
             }
-            Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
-                    (int) (sensorColor.green() * SCALE_FACTOR),
-                    (int) (sensorColor.blue() * SCALE_FACTOR),
-                    hsvValues);
+
 
             // send the info back to driver station using telemetry function.
-            telemetry.addData("Distance (cm)",
-                    String.format(Locale.US, "%.02f", sensorDistance.getDistance(DistanceUnit.CM)));
-            telemetry.addData("Alpha", sensorColor.alpha());
-            telemetry.addData("Red  ", sensorColor.red());
-            telemetry.addData("Green", sensorColor.green());
-            telemetry.addData("Blue ", sensorColor.blue());
-            telemetry.addData("Hue", hsvValues[0]);
+
+
             int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
             final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
             // change the background color to match the color detected by the RGB sensor.
