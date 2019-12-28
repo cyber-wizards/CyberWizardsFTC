@@ -67,7 +67,7 @@ public class HardwareTest
      public Servo FoundationGrabber1 = null;
      public Servo FoundationGrabber2 = null;
      public ColorSensor sensorColor;
-     public DistanceSensor sensorDistance = null;
+     public DistanceSensor sensorDistance ;
 
 
 

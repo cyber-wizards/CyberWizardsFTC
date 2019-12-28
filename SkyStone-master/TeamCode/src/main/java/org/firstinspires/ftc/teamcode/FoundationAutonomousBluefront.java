@@ -41,6 +41,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
+
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.Locale;
@@ -72,12 +73,13 @@ import java.util.Locale;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="FoundationAutonomousBlue4", group="Pushbot")
+@Autonomous(name="FoundationAutonomousBluefront", group="Pushbot")
 //@Disabled
-public class FoundationAutonomousBlue4 extends LinearOpMode {
+public class FoundationAutonomousBluefront extends LinearOpMode {
 
     ColorSensor sensorColor;
     DistanceSensor sensorDistance;
+
     float hsvValues[] = {0F, 0F, 0F};
 
     final float values[] = hsvValues;
@@ -152,7 +154,7 @@ public class FoundationAutonomousBlue4 extends LinearOpMode {
         robot.FoundationGrabber2.setPosition(0.0);
         sleep(1000);
         encoderDrive(DRIVE_SPEED4,-98,98,98,-98,10.0);
-        encoderDrive(DRIVE_SPEED3,5,5,5,5,5.0);
+        encoderDrive(DRIVE_SPEED3,15,15,15,15,5.0);
         encoderDrive(DRIVE_SPEED,-27,-27,-27,-27,5.0);
 
 
@@ -218,6 +220,9 @@ public class FoundationAutonomousBlue4 extends LinearOpMode {
             // always end the motion as soon as possible.
             // However, if you require that BOTH motors have finished their moves before the robot continues
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
+            int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
+            final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
+
             while (opModeIsActive() &&
                    (runtime.seconds() < timeoutS) &&
                    (robot.frontleft.isBusy() && robot.frontright.isBusy()
@@ -235,11 +240,11 @@ public class FoundationAutonomousBlue4 extends LinearOpMode {
                                             robot.downleft.getCurrentPosition(),
                                             robot.downright.getCurrentPosition());
 
-                /*Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
+                Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
                         (int) (sensorColor.green() * SCALE_FACTOR),
                         (int) (sensorColor.blue() * SCALE_FACTOR),
-                        hsvValues);*/
-
+                        hsvValues);
+                telemetry.addData("Alpha", sensorColor.alpha());
                 telemetry.addData("Red  ", sensorColor.red());
                 telemetry.addData("Green", sensorColor.green());
                 telemetry.addData("Blue ", sensorColor.blue());
@@ -247,23 +252,26 @@ public class FoundationAutonomousBlue4 extends LinearOpMode {
                 telemetry.update();
                 telemetry.addData("Distance (cm)",
                         String.format(Locale.US, "%.02f", sensorDistance.getDistance(DistanceUnit.CM)));
+                relativeLayout.post(new Runnable() {
+                    public void run() {
+                        relativeLayout.setBackgroundColor(Color.HSVToColor(0xff, values));
+                    }
+                });
             }
+            relativeLayout.post(new Runnable() {
+                public void run() {
+                    relativeLayout.setBackgroundColor(Color.WHITE);
+                }
+            });
 
 
             // send the info back to driver station using telemetry function.
 
 
-            int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
-            final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
+
             // change the background color to match the color detected by the RGB sensor.
             // pass a reference to the hue, saturation, and value array as an argument
             // to the HSVToColor method.
-            relativeLayout.post(new Runnable() {
-                public void run() {
-                    relativeLayout.setBackgroundColor(Color.HSVToColor(0xff, values));
-                }
-
-            });
 
             telemetry.update();
 

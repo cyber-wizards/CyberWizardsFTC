@@ -61,9 +61,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="FoundationAutonomousRed", group="Pushbot")
+@Autonomous(name="FoundationAutonomousRedback", group="Pushbot")
 //@Disabled
-public class FoundationAutonomousRed extends LinearOpMode {
+public class FoundationAutonomousRedback extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareTest         robot   = new HardwareTest();   // Use a Pushbot's hardware
@@ -75,9 +75,9 @@ public class FoundationAutonomousRed extends LinearOpMode {
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
                                                       (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double     DRIVE_SPEED             = 0.5;
-    static final double     TURN_SPEED              = 0.5;
     static final double     DRIVE_SPEED2            = 0.45;
     static final double     DRIVE_SPEED3            = 0.2;
+    static final double     DRIVE_SPEED4            = 0.75;
 
     @Override
     public void runOpMode() {
@@ -116,28 +116,18 @@ public class FoundationAutonomousRed extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  -18,  -18, 5.0);
-        encoderDrive(TURN_SPEED, -36,36,5.0);
-        encoderDrive(DRIVE_SPEED,  -16,  -16, 5.0);
-        encoderDrive(TURN_SPEED, 36,-38,5.0);
-        encoderDrive(DRIVE_SPEED,-24,-24,5.0);
-        encoderDrive(DRIVE_SPEED3,-2,-2,5.0);
+        encoderDrive(DRIVE_SPEED,-30,30,30,-30,5.0);
+        encoderDrive(DRIVE_SPEED3,5,5,5,5,5.0);
+        encoderDrive(DRIVE_SPEED,-45,-45,-45,-45,5.0);
         robot.FoundationGrabber1.setPosition(0.0);
         robot.FoundationGrabber2.setPosition(1.0);
         sleep(1000);
-        encoderDrive(DRIVE_SPEED2,48,48,10.0);
+        encoderDrive(DRIVE_SPEED2,52,52,52,52,10.0);
         robot.FoundationGrabber1.setPosition(1.0);
         robot.FoundationGrabber2.setPosition(0.0);
         sleep(1000);
-        robot.frontleft.setPower(1.0);
-        //We are moving the front left motor forward
-        robot.downleft.setPower(-1.0);
-        //We are moving the back left motor backwards
-        robot.frontright.setPower(-1.0);
-        //We are moving the front right motor backwards
-        robot.downright.setPower(1.0);
-        sleep(1320);
-        //We are moving the back right motor forward
+        encoderDrive(DRIVE_SPEED4,98,-98,-98,98,10.0);
+        encoderDrive(DRIVE_SPEED3,15,15,15,15,5.0);
 
 
 
@@ -159,7 +149,7 @@ public class FoundationAutonomousRed extends LinearOpMode {
      *  3) Driver stops the opmode running.
      */
     public void encoderDrive(double speed,
-                             double leftInches, double rightInches,
+                             double frontleftInches, double frontrightInches,double downleftInches, double downrightInches,
                              double timeoutS) {
         int newfrontleftTarget;
         int newfrontrightTarget;
@@ -171,10 +161,10 @@ public class FoundationAutonomousRed extends LinearOpMode {
 
 
             // Determine new target position, and pass to motor controller
-            newfrontleftTarget = robot.frontleft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newfrontrightTarget = robot.frontright.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
-            newdownleftTarget = robot.downleft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newdownrightTarget = robot.downright.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            newfrontleftTarget = robot.frontleft.getCurrentPosition() + (int)(frontleftInches * COUNTS_PER_INCH);
+            newfrontrightTarget = robot.frontright.getCurrentPosition() + (int)(frontrightInches * COUNTS_PER_INCH);
+            newdownleftTarget = robot.downleft.getCurrentPosition() + (int)(downleftInches * COUNTS_PER_INCH);
+            newdownrightTarget = robot.downright.getCurrentPosition() + (int)(downrightInches * COUNTS_PER_INCH);
             robot.frontleft.setTargetPosition(newfrontleftTarget);
             robot.frontright.setTargetPosition(newfrontrightTarget);
             robot.downleft.setTargetPosition(newdownleftTarget);

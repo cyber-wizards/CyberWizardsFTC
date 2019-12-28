@@ -1,4 +1,4 @@
-/* Copyright (c) 2017 FIRST. All rights reserved.
+/* Copyright (c) 2019 FIRST. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted (subject to the limitations in the disclaimer below) provided that
@@ -29,11 +29,9 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import android.graphics.Color;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -55,49 +53,38 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 /**
- * This file illustrates the concept of driving a path based on encoder counts.
- * It uses the common Pushbot hardware class to define the drive on the robot.
+ * This 2019-2020 OpMode illustrates the basics of using the Vuforia localizer to determine
+ * positioning and orientation of robot on the SKYSTONE FTC field.
  * The code is structured as a LinearOpMode
  *
- * The code REQUIRES that you DO have encoders on the wheels,
- *   otherwise you would use: PushbotAutoDriveByTime;
+ * When images are located, Vuforia is able to determine the position and orientation of the
+ * image relative to the camera.  This sample code then combines that information with a
+ * knowledge of where the target images are on the field, to determine the location of the camera.
  *
- *  This code ALSO requires that the drive Motors have been configured such that a positive
- *  power command moves them forwards, and causes the encoders to count UP.
+ * From the Audience perspective, the Red Alliance station is on the right and the
+ * Blue Alliance Station is on the left.
+
+ * Eight perimeter targets are distributed evenly around the four perimeter walls
+ * Four Bridge targets are located on the bridge uprights.
+ * Refer to the Field Setup manual for more specific location details
  *
- *   The desired path in this example is:
- *   - Drive forward for 48 inches
- *   - Spin right for 12 Inches
- *   - Drive Backwards for 24 inches
- *   - Stop and close the claw.
+ * A final calculation then uses the location of the camera on the robot to determine the
+ * robot's location and orientation on the field.
  *
- *  The code is written using a method called: encoderDrive(speed, leftInches, rightInches, timeoutS)
- *  that performs the actual movement.
- *  This methods assumes that each movement is relative to the last stopping place.
- *  There are other ways to perform encoder based moves, but this method is probably the simplest.
- *  This code uses the RUN_TO_POSITION mode to enable the Motor controllers to generate the run profile
+ * @see VuforiaLocalizer
+ * @see VuforiaTrackableDefaultListener
+ * see  skystone/doc/tutorial/FTC_FieldCoordinateSystemDefinition.pdf
  *
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
+ * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
+ * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list.
+ *
+ * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
+ * is explained below.
  */
 
-@Autonomous(name="FoundationAutonomousBlue3", group="Pushbot")
-//@Disabled
-public class FoundationAutonomousBlue3 extends LinearOpMode {
-
-    /* Declare OpMode members. */
-    HardwareTest         robot   = new HardwareTest();   // Use a Pushbot's hardware
-    private ElapsedTime     runtime = new ElapsedTime();
-
-    static final double     COUNTS_PER_MOTOR_REV    = 480 ;    // eg: TETRIX Motor Encoder
-    static final double     DRIVE_GEAR_REDUCTION    = 0.585 ;     // This is < 1.0 if geared UP
-    static final double     WHEEL_DIAMETER_INCHES   = 3.5 ;     // For figuring circumference
-    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-                                                      (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     DRIVE_SPEED             = 0.5;
-    static final double     DRIVE_SPEED4            = 0.75;
-    static final double     DRIVE_SPEED2            = 0.45;
-    static final double     DRIVE_SPEED3            = 0.2;
+@TeleOp(name="SKYSTONE Vuforia Nav Webcam", group ="Concept")
+@Disabled
+public class ConceptVuforiaSkyStoneNavigationWebcam extends LinearOpMode {
 
     // IMPORTANT: If you are using a USB WebCam, you must select CAMERA_CHOICE = BACK; and PHONE_IS_PORTRAIT = false;
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
@@ -116,7 +103,7 @@ public class FoundationAutonomousBlue3 extends LinearOpMode {
      * and paste it in to your code on the next line, between the double quotes.
      */
     private static final String VUFORIA_KEY =
-            " AR4BaoH/////AAABmUfI9MVryEosoKpSgalFS9xaJ1QLidk13Y6d1uRhcd+USJBp9UCErESjjaqqRDiuhhF+dATZ1RinzpA4BeK3ogznKGKzd18DH7/1vOLhmJL2WH1iACJj5UytH6HoELaKMROQrCHKUSPamRT2617qldBngNtU+rjq3Wu6bxTTIU5aYIikuWKGi9K6XKwBQywcVMEBU1WbXkp2gUCMR8kLMP7mMRN0CalzcWu/PDa73t4wJeg4us6UZrUW7RcTR+FLZuYOEYZuhw0Ny0dLOkwtqCuleqMlF5veyp9U3QqZ4guCkkfUgE5vByNTHdoOiCXqE2J4ZfOKqHRrw54H4uOL4B44mp4Bkk/JcXWMLVPd4G7a ";
+            " --- YOUR NEW VUFORIA KEY GOES HERE  --- ";
 
     // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
     // We will define some constants and conversions here
@@ -151,15 +138,37 @@ public class FoundationAutonomousBlue3 extends LinearOpMode {
     private float phoneXRotate    = 0;
     private float phoneYRotate    = 0;
     private float phoneZRotate    = 0;
-    @Override
-    public void runOpMode() {
+
+    @Override public void runOpMode() {
+        /*
+         * Retrieve the camera we are to use.
+         */
         webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
+
+        /*
+         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
+         * We can pass Vuforia the handle to a camera preview resource (on the RC phone);
+         * If no camera monitor is desired, use the parameter-less constructor instead (commented out below).
+         */
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+
+        // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
+
+        /**
+         * We also indicate which camera on the RC we wish to use.
+         */
         parameters.cameraName = webcamName;
+
+        //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
+
+        // Load the data sets for the trackable objects. These particular data
+        // sets are stored in the 'assets' part of our application.
         VuforiaTrackables targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
+
         VuforiaTrackable stoneTarget = targetsSkyStone.get(0);
         stoneTarget.setName("Stone Target");
         VuforiaTrackable blueRearBridge = targetsSkyStone.get(1);
@@ -186,8 +195,11 @@ public class FoundationAutonomousBlue3 extends LinearOpMode {
         rear1.setName("Rear Perimeter 1");
         VuforiaTrackable rear2 = targetsSkyStone.get(12);
         rear2.setName("Rear Perimeter 2");
+
+        // For convenience, gather together all the trackable objects in one easily-iterable collection */
         List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
         allTrackables.addAll(targetsSkyStone);
+
         /**
          * In order for localization to work, we need to tell the system where each target is on the field, and
          * where the phone resides on the robot.  These specifications are in the form of <em>transformation matrices.</em>
@@ -205,6 +217,10 @@ public class FoundationAutonomousBlue3 extends LinearOpMode {
          * Before being transformed, each target image is conceptually located at the origin of the field's
          *  coordinate system (the center of the field), facing up.
          */
+
+        // Set the position of the Stone Target.  Since it's not fixed in position, assume it's at the field origin.
+        // Rotated it to to face forward, and raised it to sit on the ground correctly.
+        // This can be used for generic target-centric approach algorithms
         stoneTarget.setLocation(OpenGLMatrix
                 .translation(0, 0, stoneZ)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
@@ -258,6 +274,22 @@ public class FoundationAutonomousBlue3 extends LinearOpMode {
         rear2.setLocation(OpenGLMatrix
                 .translation(halfField, -quadField, mmTargetHeight)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
+
+        //
+        // Create a transformation matrix describing where the phone is on the robot.
+        //
+        // NOTE !!!!  It's very important that you turn OFF your phone's Auto-Screen-Rotation option.
+        // Lock it into Portrait for these numbers to work.
+        //
+        // Info:  The coordinate frame for the robot looks the same as the field.
+        // The robot's "forward" direction is facing out along X axis, with the LEFT side facing out along the Y axis.
+        // Z is UP on the robot.  This equates to a bearing angle of Zero degrees.
+        //
+        // The phone starts out lying flat, with the screen facing Up and with the physical top of the phone
+        // pointing to the LEFT side of the Robot.
+        // The two examples below assume that the camera is facing forward out the front of the robot.
+
+        // We need to rotate the camera around it's long axis to bring the correct camera forward.
         if (CAMERA_CHOICE == BACK) {
             phoneYRotate = -90;
         } else {
@@ -276,8 +308,8 @@ public class FoundationAutonomousBlue3 extends LinearOpMode {
         final float CAMERA_LEFT_DISPLACEMENT     = 0;     // eg: Camera is ON the robot's center line
 
         OpenGLMatrix robotFromCamera = OpenGLMatrix
-                .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES, phoneYRotate, phoneZRotate, phoneXRotate));
+                    .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
+                    .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES, phoneYRotate, phoneZRotate, phoneXRotate));
 
         /**  Let all the trackable listeners know where the phone is.  */
         for (VuforiaTrackable trackable : allTrackables) {
@@ -335,151 +367,5 @@ public class FoundationAutonomousBlue3 extends LinearOpMode {
 
         // Disable Tracking when we are done;
         targetsSkyStone.deactivate();
-
-
-
-        robot.init(hardwareMap);
-
-        // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status", "Resetting Encoders");    //
-        telemetry.update();
-
-        robot.frontleft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.frontright.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.downleft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.downright.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        robot.frontleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.frontright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.downleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.downright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-
-        // Send telemetry message to indicate successful Encoder reset
-        telemetry.addData("Path0",  "Starting at %7d :%7d",
-                          robot.frontleft.getCurrentPosition(),
-                          robot.frontright.getCurrentPosition(),
-                          robot.downleft.getCurrentPosition(),
-                          robot.downright.getCurrentPosition());
-        telemetry.update();
-
-        // Wait for the game to start (driver presses PLAY)
-        waitForStart();
-
-        // Step through each leg of the path,
-        // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,30,-30,-30,30,5.0);
-        encoderDrive(DRIVE_SPEED3,5,5,5,5,5.0);
-        encoderDrive(DRIVE_SPEED,-45,-45,-45,-45,5.0);
-        robot.FoundationGrabber1.setPosition(0.0);
-        robot.FoundationGrabber2.setPosition(1.0);
-        sleep(1000);
-        encoderDrive(DRIVE_SPEED2,52,52,52,52,10.0);
-        robot.FoundationGrabber1.setPosition(1.0);
-        robot.FoundationGrabber2.setPosition(0.0);
-        sleep(1000);
-        encoderDrive(DRIVE_SPEED4,-98,98,98,-98,10.0);
-        encoderDrive(DRIVE_SPEED3,5,5,5,5,5.0);
-        encoderDrive(DRIVE_SPEED,-27,-27,-27,-27,5.0);
-
-
-
-
-
-
-
-
-        telemetry.addData("Path", "Complete");
-        telemetry.update();
     }
-
-
-    /*
-     *  Method to perfmorm a relative move, based on encoder counts.
-     *  Encoders are not reset as the move is based on the current position.
-     *  Move will stop if any of three conditions occur:
-     *  1) Move gets to the desired position
-     *  2) Move runs out of time
-     *  3) Driver stops the opmode running.
-     */
-    public void encoderDrive(double speed,
-                             double frontleftInches, double frontrightInches,double downleftInches, double downrightInches,
-                             double timeoutS) {
-        int newfrontleftTarget;
-        int newfrontrightTarget;
-        int newdownleftTarget;
-        int newdownrightTarget;
-
-        // Ensure that the opmode is still active
-        if (opModeIsActive()) {
-
-
-            // Determine new target position, and pass to motor controller
-            newfrontleftTarget = robot.frontleft.getCurrentPosition() + (int)(frontleftInches * COUNTS_PER_INCH);
-            newfrontrightTarget = robot.frontright.getCurrentPosition() + (int)(frontrightInches * COUNTS_PER_INCH);
-            newdownleftTarget = robot.downleft.getCurrentPosition() + (int)(downleftInches * COUNTS_PER_INCH);
-            newdownrightTarget = robot.downright.getCurrentPosition() + (int)(downrightInches * COUNTS_PER_INCH);
-            robot.frontleft.setTargetPosition(newfrontleftTarget);
-            robot.frontright.setTargetPosition(newfrontrightTarget);
-            robot.downleft.setTargetPosition(newdownleftTarget);
-            robot.downright.setTargetPosition(newdownrightTarget);
-
-            // Turn On RUN_TO_POSITION
-            robot.frontleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.frontright.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.downleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.downright.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            // reset the timeout time and start motion.
-            runtime.reset();
-            robot.frontleft.setPower(Math.abs(speed));
-            robot.frontright.setPower(Math.abs(speed));
-            robot.downleft.setPower(Math.abs(speed));
-            robot.downright.setPower(Math.abs(speed));
-
-
-            // keep looping while we are still active, and there is time left, and both motors are running.
-            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
-            // its target position, the motion will stop.  This is "safer" in the event that the robot will
-            // always end the motion as soon as possible.
-            // However, if you require that BOTH motors have finished their moves before the robot continues
-            // onto the next step, use (isBusy() || isBusy()) in the loop test.
-            while (opModeIsActive() &&
-                   (runtime.seconds() < timeoutS) &&
-                   (robot.frontleft.isBusy() && robot.frontright.isBusy()
-                           && robot.downleft.isBusy() && robot.downright.isBusy()))
-
-            {
-
-                // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d", newfrontleftTarget,
-                        newfrontrightTarget,newdownleftTarget,newdownrightTarget);
-                telemetry.addData("Path2",  "Running at %7d :%7d",
-                                            robot.frontleft.getCurrentPosition(),
-                                            robot.frontright.getCurrentPosition(),
-                                            robot.downleft.getCurrentPosition(),
-                                            robot.downright.getCurrentPosition());
-                telemetry.update();
-            }
-
-
-
-            // Stop all motion;
-            robot.frontleft.setPower(0);
-            robot.frontright.setPower(0);
-            robot.downleft.setPower(0);
-            robot.downright.setPower(0);
-
-
-            // Turn off RUN_TO_POSITION
-            robot.frontleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.frontright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.downleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.downright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-
-            //  sleep(250);   // optional pause after each move
-        }
-
-    }
-
 }
