@@ -29,10 +29,18 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.disnodeteam.dogecv.detectors.skystone.SkystoneDetector;
+import com.disnodeteam.dogecv.detectors.skystone.StoneDetector;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraRotation;
+import org.openftc.easyopencv.OpenCvInternalCamera;
+
+import java.util.Locale;
 
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
@@ -64,7 +72,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Autonomous(name="FoundationAutonomousBlueTesting", group="Pushbot")
 //@Disabled
 public class FoundationAutonomousBlueTesting extends LinearOpMode {
-
+    private OpenCvCamera phoneCam;
+    private SkystoneDetector skyStoneDetector;
+    private StoneDetector stoneDetector;
     /* Declare OpMode members. */
     HardwareTest         robot   = new HardwareTest();   // Use a Pushbot's hardware
     private ElapsedTime     runtime = new ElapsedTime();
@@ -110,13 +120,50 @@ public class FoundationAutonomousBlueTesting extends LinearOpMode {
                           robot.downleft.getCurrentPosition(),
                           robot.downright.getCurrentPosition());
         telemetry.update();
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        phoneCam = new OpenCvInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
+
+        // OR...  Do Not Activate the Camera Monitor View
+        //phoneCam = new OpenCvInternalCamera(OpenCvInternalCamera.CameraDirection.BACK);
+
+        /*
+         * Open the connection to the camera device
+         */
+        phoneCam.openCameraDevice();
+
+        /*
+         * Specify the image processing pipeline we wish to invoke upon receipt
+         * of a frame from the camera. Note that switching pipelines on-the-fly
+         * (while a streaming session is in flight) *IS* supported.
+         */
+        skyStoneDetector = new SkystoneDetector();
+        phoneCam.setPipeline(skyStoneDetector);
+        stoneDetector = new StoneDetector();
+        phoneCam.setPipeline(stoneDetector);
+
+        /*
+         * Tell the camera to start streaming images to us! Note that you must make sure
+         * the resolution you specify is supported by the camera. If it is not, an exception
+         * will be thrown.
+         *
+         * Also, we specify the rotation that the camera is used in. This is so that the image
+         * from the camera sensor can be rotated such that it is always displayed with the image upright.
+         * For a front facing camera, rotation is defined assuming the user is looking at the screen.
+         * For a rear facing camera or a webcam, rotation is defined assuming the camera is facing
+         * away from the user.
+         */
+        phoneCam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+
+        /*
+         * Wait for the user to press start on the Driver Station
+         */
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,30,-30,-30,30,5.0);
+       /*encoderDrive(DRIVE_SPEED,30,-30,-30,30,5.0);
         encoderDrive(DRIVE_SPEED3,5,5,5,5,5.0);
         encoderDrive(DRIVE_SPEED,-45,-45,-45,-45,5.0);
         robot.FoundationGrabber1.setPosition(0.0);
@@ -128,7 +175,23 @@ public class FoundationAutonomousBlueTesting extends LinearOpMode {
         sleep(1000);
         encoderDrive(DRIVE_SPEED4,-98,98,98,-98,10.0);
         encoderDrive(DRIVE_SPEED3,5,5,5,5,5.0);
-        encoderDrive(DRIVE_SPEED,-27,-27,-27,-27,5.0);
+        encoderDrive(DRIVE_SPEED,-27,-27,-27,-27,5.0);*/
+
+
+        if (skyStoneDetector.getScreenPosition().x <= 100){
+            robot.FrontCollector.setPosition(0.0);
+            sleep(100000);
+        }else{
+            if (skyStoneDetector.getScreenPosition().x<100){
+
+            }else
+                if (skyStoneDetector.getScreenPosition().x>150){
+
+                }else{
+
+                }
+
+        }
 
 
 
@@ -207,6 +270,16 @@ public class FoundationAutonomousBlueTesting extends LinearOpMode {
                                             robot.frontright.getCurrentPosition(),
                                             robot.downleft.getCurrentPosition(),
                                             robot.downright.getCurrentPosition());
+                telemetry.addData("Stone Position X", skyStoneDetector.getScreenPosition().x);
+                telemetry.addData("Stone Position Y", skyStoneDetector.getScreenPosition().y);
+                telemetry.addData("Frame Count", phoneCam.getFrameCount());
+                telemetry.addData("FPS", String.format(Locale.US, "%.2f", phoneCam.getFps()));
+                telemetry.addData("Total frame time ms", phoneCam.getTotalFrameTimeMs());
+                telemetry.addData("Pipeline time ms", phoneCam.getPipelineTimeMs());
+                telemetry.addData("Overhead time ms", phoneCam.getOverheadTimeMs());
+                telemetry.addData("Theoretical max FPS", phoneCam.getCurrentPipelineMaxFps());
+                telemetry.update();
+
                 telemetry.update();
             }
 

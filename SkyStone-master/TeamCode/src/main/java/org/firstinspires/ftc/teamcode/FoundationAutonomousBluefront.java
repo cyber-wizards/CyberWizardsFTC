@@ -77,14 +77,8 @@ import java.util.Locale;
 //@Disabled
 public class FoundationAutonomousBluefront extends LinearOpMode {
 
-    ColorSensor sensorColor;
-    DistanceSensor sensorDistance;
 
-    float hsvValues[] = {0F, 0F, 0F};
 
-    final float values[] = hsvValues;
-
-    final double SCALE_FACTOR = 255;
 
 
 
@@ -220,8 +214,6 @@ public class FoundationAutonomousBluefront extends LinearOpMode {
             // always end the motion as soon as possible.
             // However, if you require that BOTH motors have finished their moves before the robot continues
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
-            int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
-            final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
 
             while (opModeIsActive() &&
                    (runtime.seconds() < timeoutS) &&
@@ -240,29 +232,8 @@ public class FoundationAutonomousBluefront extends LinearOpMode {
                                             robot.downleft.getCurrentPosition(),
                                             robot.downright.getCurrentPosition());
 
-                Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
-                        (int) (sensorColor.green() * SCALE_FACTOR),
-                        (int) (sensorColor.blue() * SCALE_FACTOR),
-                        hsvValues);
-                telemetry.addData("Alpha", sensorColor.alpha());
-                telemetry.addData("Red  ", sensorColor.red());
-                telemetry.addData("Green", sensorColor.green());
-                telemetry.addData("Blue ", sensorColor.blue());
-                telemetry.addData("Hue", hsvValues[0]);
-                telemetry.update();
-                telemetry.addData("Distance (cm)",
-                        String.format(Locale.US, "%.02f", sensorDistance.getDistance(DistanceUnit.CM)));
-                relativeLayout.post(new Runnable() {
-                    public void run() {
-                        relativeLayout.setBackgroundColor(Color.HSVToColor(0xff, values));
-                    }
-                });
             }
-            relativeLayout.post(new Runnable() {
-                public void run() {
-                    relativeLayout.setBackgroundColor(Color.WHITE);
-                }
-            });
+
 
 
             // send the info back to driver station using telemetry function.
@@ -293,13 +264,7 @@ public class FoundationAutonomousBluefront extends LinearOpMode {
 
             //  sleep(250);   // optional pause after each move
         }
-        int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
-        final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
-        relativeLayout.post(new Runnable() {
-            public void run() {
-                relativeLayout.setBackgroundColor(Color.WHITE);
-            }
-        });
+
 
     }
 
