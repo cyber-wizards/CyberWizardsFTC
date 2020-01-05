@@ -81,7 +81,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="FoundationAutonomousTesting2", group="Pushbot")
+@Autonomous(name="FoundationAutonomousTestingBlue2", group="Pushbot")
 //@Disabled
 public class FoundationAutonomousBlueTesting2 extends LinearOpMode {
 
@@ -99,6 +99,8 @@ public class FoundationAutonomousBlueTesting2 extends LinearOpMode {
     static final double     DRIVE_SPEED2            = 0.45;
     static final double     DRIVE_SPEED3            = 0.2;
     static final double     DRIVE_SPEED4            = 0.75;
+    static final double     DRIVE_SPEED5            = 1.0;
+    static final double     DRIVE_SPEED6            = 0.1;
 
     // IMPORTANT: If you are using a USB WebCam, you must select CAMERA_CHOICE = BACK; and PHONE_IS_PORTRAIT = false;
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
@@ -283,26 +285,22 @@ public class FoundationAutonomousBlueTesting2 extends LinearOpMode {
                 .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES, phoneYRotate, phoneZRotate, phoneXRotate));
         robot.init(hardwareMap);
-        /*encoderDrive(DRIVE_SPEED,30,-30,-30,30,5.0);
-        encoderDrive(DRIVE_SPEED3,5,5,5,5,5.0);
-        encoderDrive(DRIVE_SPEED,-45,-45,-45,-45,5.0);
+        waitForStart();
+        encoderDrive(DRIVE_SPEED,30,-30,-30,30,5.0);
+        encoderDrive(DRIVE_SPEED4,5,5,5,5,5.0);
+        encoderDrive(DRIVE_SPEED2,-45,-45,-45,-45,5.0);
         robot.FoundationGrabber1.setPosition(0.0);
         robot.FoundationGrabber2.setPosition(1.0);
-        sleep(1000);
-        encoderDrive(DRIVE_SPEED2,52,52,52,52,10.0);
+        sleep(500);
+        encoderDrive(DRIVE_SPEED4,52,52,52,52,10.0);
         robot.FoundationGrabber1.setPosition(1.0);
         robot.FoundationGrabber2.setPosition(0.0);
-        sleep(1000);
-        encoderDrive(DRIVE_SPEED4,-98,98,98,-98,10.0);
-        encoderDrive(DRIVE_SPEED4,10,10,10,10,5.0);
-        encoderDrive(DRIVE_SPEED4,-10,0,-10,0,5.0);
-        encoderDrive(DRIVE_SPEED2,25,25,25,25,5.0);
-        encoderDrive(DRIVE_SPEED4,0,10,0,10,5.0);
-        encoderDrive(DRIVE_SPEED4,-65,65,65,-65,10.0);
-        encoderDrive(DRIVE_SPEED2,20,20,20,20,5.0);
-        encoderDrive(DRIVE_SPEED4,0,20,0,20,10.0);*/
-        //encoderDrive(DRIVE_SPEED2,-25,-25,-25,-25,10.0);
-        /**  Let all the trackable listeners know where the phone is.  */
+        sleep(500);
+        //138
+        encoderDrive(DRIVE_SPEED4,-110,140,140,-110,10.0);
+        encoderDrive(DRIVE_SPEED4,20,30,20,30,5.0);
+        encoderDrive(DRIVE_SPEED2,-27,-27,-27,-27,10.0);
+          //Let all the trackable listeners know where the phone is.
         for (VuforiaTrackable trackable : allTrackables) {
             ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(robotFromCamera, parameters.cameraDirection);
         }
@@ -321,7 +319,7 @@ public class FoundationAutonomousBlueTesting2 extends LinearOpMode {
 
         targetsSkyStone.activate();
         while (!isStopRequested()) {
-            
+
             for (VuforiaTrackable trackable : allTrackables) {
                 if (((VuforiaTrackableDefaultListener)trackable.getListener()).isVisible()) {
                     telemetry.addData("Visible Target", trackable.getName());
@@ -340,7 +338,6 @@ public class FoundationAutonomousBlueTesting2 extends LinearOpMode {
                 }
             }
 
-            // Provide feedback as to where the robot is located (if we know).
             if (targetVisible) {
                 // express position (translation) of robot in inches.
                 VectorF translation = lastLocation.getTranslation();
@@ -355,21 +352,39 @@ public class FoundationAutonomousBlueTesting2 extends LinearOpMode {
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                 telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
                 telemetry.addData("XPos", yPosition);
+
                 if(positionSkystone.equals("center")){
+
                     break;
                 }
             }
             else {
 
                 telemetry.addData("Visible Target", "none");
+                encoderDrive(DRIVE_SPEED5,-15.0,15.0,15.0,-13.0,10.0);
+                encoderDrive(DRIVE_SPEED4,0,6.5,0,6.5,5);
+                sleep(1000);
+
+
             }
             telemetry.update();
 
         }
 
-        // Disable Tracking when we are done;
+
+        //Disable Tracking when we are done;
         targetsSkyStone.deactivate();
 
+        encoderDrive(DRIVE_SPEED,11.0,-10.5,-10.5,11.0,5.0);
+        encoderDrive(DRIVE_SPEED3,-12.5,-12.5,-12.5,-12.5,5.0);
+        robot.FrontCollector.setPosition(0.0);
+        sleep(500);
+        encoderDrive(DRIVE_SPEED6,15,15,15,15,5.0);
+        encoderDrive(DRIVE_SPEED2,37,-37,37,-37,5.0);
+        encoderDrive(DRIVE_SPEED4, -65,-65,-65,-65,10.0);
+        robot.FrontCollector.setPosition(1.0);
+        sleep(500);
+        encoderDrive(DRIVE_SPEED,20,20,20,20,5.0);
 
 
 
@@ -397,7 +412,7 @@ public class FoundationAutonomousBlueTesting2 extends LinearOpMode {
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
-        waitForStart();
+//        waitForStart();
 //        targetsSkyStone.activate();
 
         //Step through each leg of the path,
@@ -499,7 +514,7 @@ public class FoundationAutonomousBlueTesting2 extends LinearOpMode {
             robot.downright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
-            //  sleep(250);   // optional pause after each move
+
         }
 
     }
@@ -521,10 +536,10 @@ public class FoundationAutonomousBlueTesting2 extends LinearOpMode {
     }
     public void AdjustmentPosition() {
          if(positionSkystone.equals("right")){
-             encoderDrive(DRIVE_SPEED,-2,2,2,-2,5.0);
+             encoderDrive(DRIVE_SPEED,-3.0,3.0,3.0,-3.0,5.0);
         }
          if(positionSkystone.equals("left")){
-             encoderDrive(DRIVE_SPEED,2,-2,-2,2,5.0);
+             encoderDrive(DRIVE_SPEED,3.0,-3.0,-3.0,3.0,5.0);
          }
 
     }
