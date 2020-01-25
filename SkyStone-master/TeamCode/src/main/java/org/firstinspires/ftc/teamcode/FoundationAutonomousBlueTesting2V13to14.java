@@ -81,9 +81,9 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="FoundationAutonomousTestingBlue2", group="Pushbot")
+@Autonomous(name="FoundationAutonomousBlueV13to14", group="Pushbot")
 //@Disabled
-public class FoundationAutonomousBlueTesting2 extends LinearOpMode {
+public class FoundationAutonomousBlueTesting2V13to14 extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareTest         robot   = new HardwareTest();   // Use a Pushbot's hardware
@@ -298,7 +298,7 @@ public class FoundationAutonomousBlueTesting2 extends LinearOpMode {
         sleep(500);
         //138
         encoderDrive(DRIVE_SPEED4,-110,140,140,-110,10.0);
-        encoderDrive(DRIVE_SPEED4,20,30,20,30,5.0);
+        encoderDrive(DRIVE_SPEED4,30,40,30,40,5.0);
         encoderDrive(DRIVE_SPEED2,-27,-27,-27,-27,10.0);
           //Let all the trackable listeners know where the phone is.
         for (VuforiaTrackable trackable : allTrackables) {
@@ -361,8 +361,8 @@ public class FoundationAutonomousBlueTesting2 extends LinearOpMode {
             else {
 
                 telemetry.addData("Visible Target", "none");
-                encoderDrive(DRIVE_SPEED5,-15.0,15.0,15.0,-13.0,10.0);
-                encoderDrive(DRIVE_SPEED4,0,6.5,0,6.5,5);
+                encoderDrive(DRIVE_SPEED4,-10.0,10.0,10.0,-10.0,10.0);
+                encoderDrive(DRIVE_SPEED4,0,20,0,20,5.0);
                 sleep(1000);
 
 
@@ -375,15 +375,16 @@ public class FoundationAutonomousBlueTesting2 extends LinearOpMode {
         //Disable Tracking when we are done;
         targetsSkyStone.deactivate();
 
-        encoderDrive(DRIVE_SPEED,11.0,-10.5,-10.5,11.0,5.0);
+        encoderDrive(DRIVE_SPEED,10.5,-10,-10,10.5,5.0);
         encoderDrive(DRIVE_SPEED3,-12.5,-12.5,-12.5,-12.5,5.0);
         robot.FrontCollector.setPosition(0.0);
         sleep(500);
         encoderDrive(DRIVE_SPEED6,15,15,15,15,5.0);
-        encoderDrive(DRIVE_SPEED2,37,-37,37,-37,5.0);
-        encoderDrive(DRIVE_SPEED4, -65,-65,-65,-65,10.0);
+        encoderDrive(DRIVE_SPEED2,31.5,-31.5,31.5,-31.5,5.0);
         robot.FrontCollector.setPosition(1.0);
         sleep(500);
+        encoderDrive(DRIVE_SPEED4, -95,-95,-95,-95,10.0);
+
         encoderDrive(DRIVE_SPEED,20,20,20,20,5.0);
 
 

@@ -80,9 +80,9 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="FoundationAutonomousRedTesting2", group="Pushbot")
+@Autonomous(name="FoundationAutonomousRedV13to14", group="Pushbot")
 //@Disabled
-public class FoundationAutonomousRedTesting2 extends LinearOpMode {
+public class FoundationAutonomousRedTesting2V13to14 extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareTest         robot   = new HardwareTest();   // Use a Pushbot's hardware
@@ -286,7 +286,7 @@ public class FoundationAutonomousRedTesting2 extends LinearOpMode {
         robot.init(hardwareMap);
         waitForStart();
         encoderDrive(DRIVE_SPEED,-30,30,30,-30,5.0);
-        encoderDrive(DRIVE_SPEED,5,5,5,5,5.0);
+        encoderDrive(DRIVE_SPEED,10,10,10,10,5.0);
         encoderDrive(DRIVE_SPEED2,-45,-45,-45,-45,5.0);
         robot.FoundationGrabber1.setPosition(0.0);
         robot.FoundationGrabber2.setPosition(1.0);
@@ -296,7 +296,7 @@ public class FoundationAutonomousRedTesting2 extends LinearOpMode {
         robot.FoundationGrabber2.setPosition(0.0);
         sleep(500);
         //138
-        encoderDrive(DRIVE_SPEED4,140,-110,-110,140,10.0);
+        encoderDrive(DRIVE_SPEED4,125,-125,-125,125,10.0);
         encoderDrive(DRIVE_SPEED4,50,40,50,40,5.0);
         encoderDrive(DRIVE_SPEED2,-25,-25,-25,-25,10.0);
           //Let all the trackable listeners know where the phone is.
@@ -360,9 +360,10 @@ public class FoundationAutonomousRedTesting2 extends LinearOpMode {
             else {
 
                 telemetry.addData("Visible Target", "none");
-                encoderDrive(DRIVE_SPEED5,15.0,-15.0,-13.0,15.0,10.0);
+                encoderDrive(DRIVE_SPEED5,12.0,-12.0,-9.0,12.0,10.0);
 
-                encoderDrive(DRIVE_SPEED3,-2.5,-3.5,-2.5,-3.5,5.0);
+                encoderDrive(DRIVE_SPEED3,-2.5,-8,-2.5,-8,5.0);
+
                 sleep(1000);
 
 
@@ -375,16 +376,18 @@ public class FoundationAutonomousRedTesting2 extends LinearOpMode {
         //Disable Tracking when we are done;
         targetsSkyStone.deactivate();
 
-        encoderDrive(DRIVE_SPEED,12,-13,-13,12,5.0);
-        encoderDrive(DRIVE_SPEED2,-9,-9,-9,-9,5.0);
+        encoderDrive(DRIVE_SPEED,9.5,-9.5,-9.5,9.5,5.0);
+        encoderDrive(DRIVE_SPEED2,-8,-10,-8,-10,5.0);
         robot.FrontCollector.setPosition(0.0);
         sleep(500);
         encoderDrive(DRIVE_SPEED6,15,15,15,15,5.0);
         encoderDrive(DRIVE_SPEED2,-35,35,-35,35,5.0);
-        encoderDrive(DRIVE_SPEED4, -85,-85,-85,-85,10.0);
         robot.FrontCollector.setPosition(1.0);
         sleep(500);
-        encoderDrive(DRIVE_SPEED,20,20,20,20,5.0);
+        encoderDrive(DRIVE_SPEED4, -80,-80,-80,-80,10.0);
+        encoderDrive(DRIVE_SPEED3,-30,-30,-30,-30,5.0);
+
+        encoderDrive(DRIVE_SPEED,28,28,28,28    ,5.0);
 
 
 
