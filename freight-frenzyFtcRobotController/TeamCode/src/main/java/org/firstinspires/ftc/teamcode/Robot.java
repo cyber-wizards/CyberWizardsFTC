@@ -59,6 +59,7 @@ public class Robot {
         // intakeLifter.setDirection(DcMotor.Direction.FORWARD);
         //Dropper1.setPosition(1.0);
     }
+
     public void pickup(){
         this.arm.setPower(0.4);
         this.sleep(700);
@@ -83,4 +84,5 @@ public class Robot {
         this.Wrist.setPosition(0.0);
         this.sleep(300);
     }
+
 }

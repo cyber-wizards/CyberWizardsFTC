@@ -15,6 +15,7 @@ import com.qualcomm.robotcore.util.Range;
 @TeleOp(name="TeleOpProgram", group="Linear Opmode")
 public class TeleOpProgram extends LinearOpMode
 {
+
 // Declare OpMode members.
 
     Robot robot = new Robot();
@@ -24,7 +25,7 @@ public class TeleOpProgram extends LinearOpMode
     @Override
     public void runOpMode() {
         double xNew = 1.0;
-        // private DcMotor intake Lifter = null;
+
         // this is a comment
 
         /*
@@ -216,6 +217,7 @@ public class TeleOpProgram extends LinearOpMode
 //                robot.Wrist.setPosition(0.0);
 //                robot.sleep(300);
                 robot.pickup();
+
 
 
 
