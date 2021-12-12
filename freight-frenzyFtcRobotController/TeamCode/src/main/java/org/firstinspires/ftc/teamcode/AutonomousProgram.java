@@ -65,7 +65,7 @@ import org.firstinspires.ftc.teamcode.Robot;
  */
 
 @Autonomous(name="Auto", group="Pushbot")
-@Disabled
+//@Disabled
 public class AutonomousProgram extends LinearOpMode {
 
     /* Declare OpMode members. */
@@ -88,6 +88,10 @@ public class AutonomousProgram extends LinearOpMode {
          * The init() method of the hardware class does all the work here
          */
         robot.init(hardwareMap);
+        robot.lbDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.rbDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.lfDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.rfDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
@@ -110,7 +114,7 @@ public class AutonomousProgram extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-
+        encoderDrive(0.5, 13, 13,13,13, 1.0);
 
 //        robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
 //        robot.rightClaw.setPosition(0.0);
@@ -135,6 +139,11 @@ public class AutonomousProgram extends LinearOpMode {
         int newfrontrightTarget;
         int newdownleftTarget;
         int newdownrightTarget;
+
+        frontleftInches = -frontleftInches/6;
+        downleftInches = -downleftInches/6;
+        downrightInches = -downrightInches/6;
+        frontrightInches = -frontrightInches/6;
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {

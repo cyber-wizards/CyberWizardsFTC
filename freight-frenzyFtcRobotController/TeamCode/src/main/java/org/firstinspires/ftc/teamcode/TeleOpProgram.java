@@ -248,13 +248,13 @@ public class TeleOpProgram extends LinearOpMode
             }
 
             //todo monkey
-//        if(gamepad2.a){
-//            robot.Dropper1.setPosition(0.25);
-//            robot.Dropper2.setPosition(0.25);
-//        }else {
-//            robot.Dropper1.setPosition(0.0);
-//            robot.Dropper2.setPosition(0.0);
-//        }
+        if(gamepad2.a){
+            robot.Dropper1.setPosition(0.25);
+            robot.Dropper2.setPosition(0.25);
+        }else {
+            robot.Dropper1.setPosition(0.0);
+            robot.Dropper2.setPosition(0.0);
+        }
 
 
             if (gamepad2.right_bumper) {
