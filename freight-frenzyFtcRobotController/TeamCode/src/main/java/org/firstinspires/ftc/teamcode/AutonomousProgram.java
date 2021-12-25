@@ -35,6 +35,12 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+
 import org.firstinspires.ftc.teamcode.Robot;
 
 /**
@@ -65,7 +71,7 @@ import org.firstinspires.ftc.teamcode.Robot;
  */
 
 @Autonomous(name="Auto", group="Pushbot")
-//@Disabled
+@Disabled
 public class AutonomousProgram extends LinearOpMode {
 
     /* Declare OpMode members. */
@@ -80,6 +86,7 @@ public class AutonomousProgram extends LinearOpMode {
     static final double     DRIVE_SPEED             = 0.6;
     static final double     TURN_SPEED              = 0.5;
 
+
     @Override
     public void runOpMode() {
 
@@ -88,10 +95,6 @@ public class AutonomousProgram extends LinearOpMode {
          * The init() method of the hardware class does all the work here
          */
         robot.init(hardwareMap);
-        robot.lbDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.rbDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.lfDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.rfDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
@@ -114,11 +117,15 @@ public class AutonomousProgram extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
+        String detectedObject = robot.detectObject(hardwareMap);
+
+        if(detectedObject == "Duck"){
+            encoderDrive(0.5, -13, -13, -13, -13, 5);
+        }
 
 //        robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
 //        robot.rightClaw.setPosition(0.0);
 //        sleep(1000);     // pause for servos to move
-        encoderDrive(0.5, 13, 13,13,13, 1.0);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -140,10 +147,10 @@ public class AutonomousProgram extends LinearOpMode {
         int newdownleftTarget;
         int newdownrightTarget;
 
-        frontleftInches = -frontleftInches/6;
-        downleftInches = -downleftInches/6;
-        downrightInches = -downrightInches/6;
-        frontrightInches = -frontrightInches/6;
+         frontleftInches = -frontleftInches/6;
+             downleftInches = -downleftInches/6;
+             downrightInches = -downrightInches/6;
+             frontrightInches = -frontrightInches/6;
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
@@ -158,6 +165,8 @@ public class AutonomousProgram extends LinearOpMode {
             robot.rfDrive.setTargetPosition(newfrontrightTarget);
             robot.lbDrive.setTargetPosition(newdownleftTarget);
             robot.rbDrive.setTargetPosition(newdownrightTarget);
+
+            
 
             // Turn On RUN_TO_POSITION
             robot.lfDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
