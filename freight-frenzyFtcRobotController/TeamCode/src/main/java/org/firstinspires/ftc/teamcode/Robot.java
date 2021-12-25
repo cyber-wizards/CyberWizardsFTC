@@ -69,6 +69,31 @@ public class Robot {
         //Dropper1.setPosition(1.0);
     }
 
+    public void pickup(){
+        this.arm.setPower(0.4);
+        this.sleep(700);
+
+
+        this.Dropper1.setPosition(0.25);
+        this.Dropper2.setPosition(0.25);
+        this.Wrist.setPosition(0.6);
+        this.sleep(300);
+
+        this.sleep(250);
+
+        this.arm.setPower(-0.1);
+        this.sleep(100);
+        this.arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        this.Dropper1.setPosition(0.0);
+        this.Dropper2.setPosition(0.0);
+        this.sleep(300);
+        this.arm.setPower(-0.6);
+        this.sleep(1000);
+        this.Wrist.setPosition(0.0);
+        this.sleep(300);
+    }
+
     private static final String TFOD_MODEL_ASSET = "FreightFrenzy_BCDM.tflite";
     private static final String[] LABELS = {
             "Ball",
@@ -163,7 +188,7 @@ public class Robot {
                 // getUpdatedRecognitions() will return null if no new information is available since
                 // the last time that call was made.
                 List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-                if (updatedRecognitions != null) {
+                if (updatedRecognitions != null && updatedRecognitions.size()>0) {
 //                    telemetry.addData("# Object Detected", updatedRecognitions.size());
                     // step through the list of recognitions and display boundary info.
 //                    int i = 0;
