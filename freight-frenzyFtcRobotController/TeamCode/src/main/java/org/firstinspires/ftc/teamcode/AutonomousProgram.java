@@ -71,7 +71,7 @@ import org.firstinspires.ftc.teamcode.Robot;
  */
 
 @Autonomous(name="Auto", group="Pushbot")
-@Disabled
+//@Disabled
 public class AutonomousProgram extends LinearOpMode {
 
     /* Declare OpMode members. */
@@ -86,6 +86,41 @@ public class AutonomousProgram extends LinearOpMode {
     static final double     DRIVE_SPEED             = 0.6;
     static final double     TURN_SPEED              = 0.5;
 
+    private static final String TFOD_MODEL_ASSET = "FreightFrenzy_BCDM.tflite";
+    private static final String[] LABELS = {
+            "Ball",
+            "Cube",
+            "Duck",
+            "Marker"
+    };
+
+    /*
+     * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
+     * 'parameters.vuforiaLicenseKey' is initialized is for illustration only, and will not function.
+     * A Vuforia 'Development' license key, can be obtained free of charge from the Vuforia developer
+     * web site at https://developer.vuforia.com/license-manager.
+     *
+     * Vuforia license keys are always 380 characters long, and look as if they contain mostly
+     * random data. As an example, here is a example of a fragment of a valid key:
+     *      ... yIgIzTqZ4mWjk9wd3cZO9T1axEqzuhxoGlfOOI2dRzKS4T0hQ8kT ...
+     * Once you've obtained a license key, copy the string from the Vuforia web site
+     * and paste it in to your code on the next line, between the double quotes.
+     */
+    private static final String VUFORIA_KEY =
+//            " -- YOUR NEW VUFORIA KEY GOES HERE  --- ";
+            "AR4BaoH/////AAABmUfI9MVryEosoKpSgalFS9xaJ1QLidk13Y6d1uRhcd+USJBp9UCErESjjaqqRDiuhhF+dATZ1RinzpA4BeK3ogznKGKzd18DH7/1vOLhmJL2WH1iACJj5UytH6HoELaKMROQrCHKUSPamRT2617qldBngNtU+rjq3Wu6bxTTIU5aYIikuWKGi9K6XKwBQywcVMEBU1WbXkp2gUCMR8kLMP7mMRN0CalzcWu/PDa73t4wJeg4us6UZrUW7RcTR+FLZuYOEYZuhw0Ny0dLOkwtqCuleqMlF5veyp9U3QqZ4guCkkfUgE5vByNTHdoOiCXqE2J4ZfOKqHRrw54H4uOL4B44mp4Bkk/JcXWMLVPd4G7a";
+
+    /**
+     * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
+     * localization engine.
+     */
+    private VuforiaLocalizer vuforia;
+
+    /**
+     * {@link #tfod} is the variable we will use to store our instance of the TensorFlow Object
+     * Detection engine.
+     */
+    private TFObjectDetector tfod;
 
     @Override
     public void runOpMode() {
@@ -119,9 +154,15 @@ public class AutonomousProgram extends LinearOpMode {
 
         String detectedObject = robot.detectObject(hardwareMap);
 
+        telemetry.addData("U:", "phrates river");
+        telemetry.update();
+
         if(detectedObject == "Duck"){
             encoderDrive(0.5, -13, -13, -13, -13, 5);
         }
+
+        telemetry.addData("Object:", detectedObject);
+        telemetry.update();
 
 //        robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
 //        robot.rightClaw.setPosition(0.0);
@@ -147,11 +188,6 @@ public class AutonomousProgram extends LinearOpMode {
         int newdownleftTarget;
         int newdownrightTarget;
 
-         frontleftInches = -frontleftInches/6;
-             downleftInches = -downleftInches/6;
-             downrightInches = -downrightInches/6;
-             frontrightInches = -frontrightInches/6;
-
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
@@ -165,8 +201,6 @@ public class AutonomousProgram extends LinearOpMode {
             robot.rfDrive.setTargetPosition(newfrontrightTarget);
             robot.lbDrive.setTargetPosition(newdownleftTarget);
             robot.rbDrive.setTargetPosition(newdownrightTarget);
-
-            
 
             // Turn On RUN_TO_POSITION
             robot.lfDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
