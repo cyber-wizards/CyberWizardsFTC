@@ -114,11 +114,11 @@ public class AutonomousProgram extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        encoderDrive(0.5, 13, 13,13,13, 1.0);
 
 //        robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
 //        robot.rightClaw.setPosition(0.0);
 //        sleep(1000);     // pause for servos to move
+        encoderDrive(0.5, 13, 13,13,13, 1.0);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
