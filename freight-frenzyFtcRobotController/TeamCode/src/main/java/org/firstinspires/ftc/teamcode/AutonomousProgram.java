@@ -121,7 +121,11 @@ public class AutonomousProgram extends LinearOpMode {
 
         robot.lfDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rfDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.lbDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rbDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+        robot.lfDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rfDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.lbDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rbDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
@@ -135,16 +139,19 @@ public class AutonomousProgram extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        int i=1;
-        while(i<=3) {
+        encoderDrive(0.5, 1, 1, 1, 1, 5);
+        int level=1;
+        for(int i=0;i<3;i++) {
+            level = i+1;
             List<Recognition> detectedObject = robot.detectObject(hardwareMap);
-            if(detectedObject.get(0).getLabel() != "Marker"){
+            if(detectedObject.size()>0 && detectedObject.get(0).getLabel() != "Marker"){
                 break;
             }
-            encoderDrive(0.5, -13, -13, -13, -13, 5);
+            encoderDrive(0.5, 5, -5, -5, 5, 5);
+
         }
 
-        switch (i){
+        switch (level){
             case(1):
 
                 break;
@@ -207,6 +214,11 @@ public class AutonomousProgram extends LinearOpMode {
         int newfrontrightTarget;
         int newdownleftTarget;
         int newdownrightTarget;
+
+        frontleftInches = -frontleftInches;
+        frontrightInches = -frontrightInches;
+        downleftInches = -downleftInches;
+        downrightInches = -downrightInches;
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
