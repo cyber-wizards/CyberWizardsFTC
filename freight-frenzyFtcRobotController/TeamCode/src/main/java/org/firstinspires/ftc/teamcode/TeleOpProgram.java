@@ -133,14 +133,14 @@ public class TeleOpProgram extends LinearOpMode
                 robot.rfDrive.setPower(x);
             } else if (gamepad1.left_trigger > 0) {
                 robot.lbDrive.setPower(x);
-                robot.rbDrive.setPower(-x);
+                robot.rbDrive.setPower(x);
                 robot.lfDrive.setPower(-x);
-                robot.rfDrive.setPower(x);
+                robot.rfDrive.setPower(-x);
             } else if (gamepad1.right_trigger > 0) {
                 robot.lbDrive.setPower(-x);
-                robot.rbDrive.setPower(x);
+                robot.rbDrive.setPower(-x);
                 robot.lfDrive.setPower(x);
-                robot.rfDrive.setPower(-x);
+                robot.rfDrive.setPower(x);
             } else if (gamepad1.right_stick_x < 0) {
                 robot.lbDrive.setPower(-x);
                 robot.rbDrive.setPower(x);
@@ -248,13 +248,13 @@ public class TeleOpProgram extends LinearOpMode
             }
 
             //todo monkey
-        if(gamepad2.a){
-            robot.Dropper1.setPosition(0.25);
-            robot.Dropper2.setPosition(0.25);
-        }else {
-            robot.Dropper1.setPosition(0.0);
-            robot.Dropper2.setPosition(0.0);
-        }
+            if(gamepad2.a){
+                robot.Dropper1.setPosition(0.25);
+                robot.Dropper2.setPosition(0.25);
+            }else {
+                robot.Dropper1.setPosition(0.0);
+                robot.Dropper2.setPosition(0.0);
+            }
 
 
             if (gamepad2.right_bumper) {
@@ -274,4 +274,3 @@ public class TeleOpProgram extends LinearOpMode
 
         }
     };}
-

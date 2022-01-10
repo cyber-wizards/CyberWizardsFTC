@@ -33,15 +33,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
-import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
-
 import org.firstinspires.ftc.teamcode.Robot;
 
 import java.util.ArrayList;
@@ -74,7 +68,7 @@ import java.util.List;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Auto", group="Pushbot")
+@Autonomous(name="Auto", group="Linear Opmode")
 //@Disabled
 public class AutonomousProgram extends LinearOpMode {
 
@@ -89,22 +83,7 @@ public class AutonomousProgram extends LinearOpMode {
             (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double     DRIVE_SPEED             = 0.6;
     static final double     TURN_SPEED              = 0.5;
-
-
-
-    /*
-     * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
-     * 'parameters.vuforiaLicenseKey' is initialized is for illustration only, and will not function.
-     * A Vuforia 'Development' license key, can be obtained free of charge from the Vuforia developer
-     * web site at https://developer.vuforia.com/license-manager.
-     *
-     * Vuforia license keys are always 380 characters long, and look as if they contain mostly
-     * random data. As an example, here is a example of a fragment of a valid key:
-     *      ... yIgIzTqZ4mWjk9wd3cZO9T1axEqzuhxoGlfOOI2dRzKS4T0hQ8kT ...
-     * Once you've obtained a license key, copy the string from the Vuforia web site
-     * and paste it in to your code on the next line, between the double quotes.
-     */
-
+    static List<String> logs = new ArrayList<>();
 
     @Override
     public void runOpMode() {
@@ -114,27 +93,26 @@ public class AutonomousProgram extends LinearOpMode {
          * The init() method of the hardware class does all the work here
          */
         robot.init(hardwareMap);
+        robot.initVision(hardwareMap);
+//        robot.lbDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        robot.rbDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        robot.lfDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        robot.rfDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
         telemetry.update();
+        logs.add("Status,:Resetting Encoders");
 
         robot.lfDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rfDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.lbDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rbDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-//
-//        robot.lfDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        robot.rfDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        robot.lbDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        robot.rbDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-
-        robot.lbDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.rbDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.lfDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.rfDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.lfDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rfDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.lbDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rbDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Send telemetry message to indicate successful Encoder reset
         telemetry.addData("Path0",  "Starting at %7d :%7d",
@@ -144,18 +122,32 @@ public class AutonomousProgram extends LinearOpMode {
                 robot.rfDrive.getCurrentPosition());
         telemetry.update();
 
+        logs.add("Path0,:"+robot.rbDrive.getCurrentPosition()+" "+
+                robot.lbDrive.getCurrentPosition()+" "+
+                robot.lfDrive.getCurrentPosition()+" "+
+                robot.rfDrive.getCurrentPosition());
+
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        encoderDrive(0.5, 2, 2, 2, 2, 5);
+       /* robot.lfDrive.setPower(0.5);
+        robot.lbDrive.setPower(0.5);
+        robot.rfDrive.setPower(0.5);
+        robot.rbDrive.setPower(0.5);
+        sleep(1000);*/
 
-        //        int level=1;
+
+          encoderDrive(0.25, 13, 13,-13,-13, 1.0);
+          encoderDrive(0.5, 13, 13,13,13, 1.0);
+          encoderDrive(1.0, -5, -5, -5, -5, 5);
+//
+//        int level=1;
 //        for(int i=0;i<3;i++) {
 //            level = i+1;
 //            List<Recognition> detectedObject = robot.detectObject(hardwareMap);
 //            if(detectedObject.size()>0 && detectedObject.get(0).getLabel() != "Marker"){
 //                break;
 //            }
-//            encoderDrive(0.5, 5, -5, -5, 5, 5);
+//            encoderDrive(0.15, 5, 5, -5, -5, 5);
 //
 //        }
 //
@@ -171,40 +163,19 @@ public class AutonomousProgram extends LinearOpMode {
 //                break;
 //        }
 
-//        encoderDrive(0.5, -13, -13, -13, -13, 5);
-
-
-
-//        this.sleep(1000);
-
-
-//        if(detectedObject == "Duck"){
-//            encoderDrive(0.5, -13, -13, -13, -13, 5);
-//        }
-
-////        if(detectedObject.size()==0){
-//            telemetry.addData("Thing", detectedObject);
-//            telemetry.update();
-//            robot.sleep(750);
-////        }
-
-//        for(Recognition recog : detectedObject){
-////            telemetry.addData("Detection", recog.getLabel());
-//        }
-//        telemetry.update();
-//        robot.sleep(1000);
-
-
-//
-//        telemetry.addData("Object:", detectedObject);
-//        telemetry.update();
-
 //        robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
 //        robot.rightClaw.setPosition(0.0);
 //        sleep(1000);     // pause for servos to move
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
+        logs.add("Path,:Complete");
+
+        for(String a:logs){
+            telemetry.addData(a.split(",:")[0],a.split(",:")[1]);
+        }
+        telemetry.update();
+        sleep(30000);
     }
 
     /*
@@ -223,30 +194,24 @@ public class AutonomousProgram extends LinearOpMode {
         int newdownleftTarget;
         int newdownrightTarget;
 
-        frontleftInches = -frontleftInches;
-        frontrightInches = -frontrightInches;
-        downleftInches = -downleftInches;
-        downrightInches = -downrightInches;
+//        frontleftInches = (-frontleftInches);
+//        downleftInches = (-downleftInches);
+//        downrightInches = (-downrightInches);
+//        frontrightInches = (-frontrightInches);
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
 
             // Determine new target position, and pass to motor controller
-            newfrontleftTarget = robot.lfDrive.getCurrentPosition() + (int)(frontleftInches * COUNTS_PER_INCH);
-            newfrontrightTarget = robot.rfDrive.getCurrentPosition() + (int)(frontrightInches * COUNTS_PER_INCH);
-            newdownleftTarget = robot.lbDrive.getCurrentPosition() + (int)(downleftInches * COUNTS_PER_INCH);
-            newdownrightTarget = robot.rbDrive.getCurrentPosition() + (int)(downrightInches * COUNTS_PER_INCH);
+            newfrontleftTarget = robot.lfDrive.getCurrentPosition() + (int)(-(frontleftInches) * COUNTS_PER_INCH/6);
+            newfrontrightTarget = robot.rfDrive.getCurrentPosition() + (int)(-(frontrightInches) * COUNTS_PER_INCH/6);
+            newdownleftTarget = robot.lbDrive.getCurrentPosition() + (int)(-(downleftInches) * COUNTS_PER_INCH/6);
+            newdownrightTarget = robot.rbDrive.getCurrentPosition() + (int)(-(downrightInches) * COUNTS_PER_INCH/6);
             robot.lfDrive.setTargetPosition(newfrontleftTarget);
             robot.rfDrive.setTargetPosition(newfrontrightTarget);
             robot.lbDrive.setTargetPosition(newdownleftTarget);
             robot.rbDrive.setTargetPosition(newdownrightTarget);
-//
-//
-//            robot.lfDrive.setTargetPosition((int)frontleftInches);
-//            robot.rfDrive.setTargetPosition((int)frontrightInches);
-//            robot.lbDrive.setTargetPosition((int)downleftInches);
-//            robot.rbDrive.setTargetPosition((int)downrightInches);
 
             // Turn On RUN_TO_POSITION
             robot.lfDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -278,11 +243,17 @@ public class AutonomousProgram extends LinearOpMode {
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d",newfrontleftTarget,
                         newfrontrightTarget,newdownleftTarget,newdownrightTarget);
+                logs.add("Path1,:"+newdownleftTarget+" "+newfrontrightTarget+" "+newdownleftTarget+" "+newdownrightTarget);
+
                 telemetry.addData("Path2",  "Running at %7d :%7d",
                         robot.lfDrive.getCurrentPosition(),
                         robot.rfDrive.getCurrentPosition()
                         ,robot.lbDrive.getCurrentPosition(),
                         robot.rbDrive.getCurrentPosition());
+                logs.add("Path2,:"+robot.rbDrive.getCurrentPosition()+" "+
+                        robot.lbDrive.getCurrentPosition()+" "+
+                        robot.lfDrive.getCurrentPosition()+" "+
+                        robot.rfDrive.getCurrentPosition());
                 telemetry.update();
             }
 
@@ -300,6 +271,12 @@ public class AutonomousProgram extends LinearOpMode {
             robot.rfDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.lbDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.rbDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+            robot.lfDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.rfDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.lbDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.rbDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
             //  sleep(250);   // optional pause after each move

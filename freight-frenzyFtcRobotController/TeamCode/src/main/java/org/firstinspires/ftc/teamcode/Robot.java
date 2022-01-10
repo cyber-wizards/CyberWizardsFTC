@@ -54,7 +54,7 @@ public class Robot {
         Dropper1  = hardwareMap.get(Servo.class, "dropper1");
         Dropper2 = hardwareMap.get(Servo.class, "dropper2");
         Wrist = hardwareMap.get(Servo.class, "wrist");
-        Webcam = hardwareMap.get(WebcamName.class, "Webcam");
+        Webcam = hardwareMap.get(WebcamName.class, "Webcam 1");
 
 
         arm  = hardwareMap.get(DcMotor.class, "arm");
@@ -72,6 +72,11 @@ public class Robot {
         carousel.setDirection(DcMotorSimple.Direction.REVERSE);
         // intakeLifter.setDirection(DcMotor.Direction.FORWARD);
         //Dropper1.setPosition(1.0);
+    }
+
+    public void initVision(HardwareMap hardwareMap){
+        this.initVuforia();
+        this.initTfod(hardwareMap);
     }
 
     public void pickup(){
@@ -108,8 +113,8 @@ public class Robot {
     };
     private static final String VUFORIA_KEY =
 //            " -- YOUR NEW VUFORIA KEY GOES HERE  --- ";
-            "AR4BaoH/////AAABmUfI9MVryEosoKpSgalFS9xaJ1QLidk13Y6d1uRhcd+USJBp9UCErESjjaqqRDiuhhF+dATZ1RinzpA4BeK3ogznKGKzd18DH7/1vOLhmJL2WH1iACJj5UytH6HoELaKMROQrCHKUSPamRT2617qldBngNtU+rjq3Wu6bxTTIU5aYIikuWKGi9K6XKwBQywcVMEBU1WbXkp2gUCMR8kLMP7mMRN0CalzcWu/PDa73t4wJeg4us6UZrUW7RcTR+FLZuYOEYZuhw0Ny0dLOkwtqCuleqMlF5veyp9U3QqZ4guCkkfUgE5vByNTHdoOiCXqE2J4ZfOKqHRrw54H4uOL4B44mp4Bkk/JcXWMLVPd4G7a";
-
+//            "AR4BaoH/////AAABmUfI9MVryEosoKpSgalFS9xaJ1QLidk13Y6d1uRhcd+USJBp9UCErESjjaqqRDiuhhF+dATZ1RinzpA4BeK3ogznKGKzd18DH7/1vOLhmJL2WH1iACJj5UytH6HoELaKMROQrCHKUSPamRT2617qldBngNtU+rjq3Wu6bxTTIU5aYIikuWKGi9K6XKwBQywcVMEBU1WbXkp2gUCMR8kLMP7mMRN0CalzcWu/PDa73t4wJeg4us6UZrUW7RcTR+FLZuYOEYZuhw0Ny0dLOkwtqCuleqMlF5veyp9U3QqZ4guCkkfUgE5vByNTHdoOiCXqE2J4ZfOKqHRrw54H4uOL4B44mp4Bkk/JcXWMLVPd4G7a";
+"AVJZGR3/////AAABmW7vjrSEBUx3r+OoZNhGTHQkTNjH0B34dPXOah0FS0iHXW9QKzet6THKR+Sxxn7tIDrRE6yjTpxUBeB4xtpTgzCYlfDhWpNVZspxu1HmbAKRsL0xDDjQHSMWlbWj1LM/iSzNEXEcgP+34yWbzOP+5FY+z+GMshWOCL62lrc1DyHh/b0zsAXX3iBmbFgw4SQCnJQk+byrGhG1KR6j/kyyYHeCtdvGf7bsr0hBxt5EElKPb5pYkF8TmhnO8HJDpmmOSq1kc9pYFvDnJ8c8b6mcn//0YC/1735o3Dnd07QpD2yJqZcUE5HbaQcHO5mt0Fp3usgyJsN07n+nfTNQuW+Wd0AuShblCK8x+PR/ubBv26I/";
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
      * localization engine.
@@ -154,8 +159,7 @@ public class Robot {
 //        public void runOpMode () {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
-        initVuforia(hardwareMap);
-        initTfod(hardwareMap);
+
 
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
@@ -207,7 +211,7 @@ public class Robot {
     /**
      * Initialize the Vuforia localization engine.
      */
-    private void initVuforia(HardwareMap hardwareMap) {
+    private void initVuforia() {
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
          */
@@ -235,7 +239,6 @@ public class Robot {
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
     }
-    }
-
+}
 
 
