@@ -94,10 +94,10 @@ public class AutonomousProgram extends LinearOpMode {
          */
         robot.init(hardwareMap);
         robot.initVision(hardwareMap);
-//        robot.lbDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//        robot.rbDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//        robot.lfDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//        robot.rfDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.lbDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.rbDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.lfDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.rfDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
@@ -136,32 +136,39 @@ public class AutonomousProgram extends LinearOpMode {
         sleep(1000);*/
 
 
-          encoderDrive(0.25, 13, 13,-13,-13, 1.0);
-          encoderDrive(0.5, 13, 13,13,13, 1.0);
-          encoderDrive(1.0, -5, -5, -5, -5, 5);
+        encoderDrive(0.3, 8, 8, 8, 8, 5);
 //
-//        int level=1;
-//        for(int i=0;i<3;i++) {
-//            level = i+1;
-//            List<Recognition> detectedObject = robot.detectObject(hardwareMap);
-//            if(detectedObject.size()>0 && detectedObject.get(0).getLabel() != "Marker"){
-//                break;
-//            }
-//            encoderDrive(0.15, 5, 5, -5, -5, 5);
-//
-//        }
-//
-//        switch (level){
-//            case(1):
-//
-//                break;
-//            case(2):
-//
-//                break;
-//            case(3):
-//
-//                break;
-//        }
+        int level=1;
+
+        for(int i=0;i<3;i++) {
+            level = i+1;
+            sleep(500);
+            List<Recognition> detectedObject = robot.detectObject(hardwareMap);
+            if((detectedObject.size()>0 && detectedObject.get(0).getLabel() != "Marker")||(detectedObject.size()==0)){
+                break;
+            }
+            encoderDrive(0.25, 10.5, -10.5, -10.5, 10.5, 5);
+
+        }
+        double strafe = ((3-level)*10.5);
+        encoderDrive(0.25, 1, 1, 1, 1, 5);
+
+        encoderDrive(0.25, 20+strafe, -20-strafe, -20-strafe, 20+strafe, 5);
+        encoderDrive(0.3, -2, -2, -2, -2, 5);
+
+        robot.carousel.setPower(-0.5);
+        sleep(2500);
+        switch (level){
+            case(1):
+
+                break;
+            case(2):
+
+                break;
+            case(3):
+
+                break;
+        }
 
 //        robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
 //        robot.rightClaw.setPosition(0.0);
@@ -171,11 +178,11 @@ public class AutonomousProgram extends LinearOpMode {
         telemetry.update();
         logs.add("Path,:Complete");
 
-        for(String a:logs){
-            telemetry.addData(a.split(",:")[0],a.split(",:")[1]);
-        }
+//        for(String a:logs){
+//            telemetry.addData(a.split(",:")[0],a.split(",:")[1]);
+//        }
         telemetry.update();
-        sleep(30000);
+//        sleep(30000);
     }
 
     /*
@@ -204,10 +211,10 @@ public class AutonomousProgram extends LinearOpMode {
 
 
             // Determine new target position, and pass to motor controller
-            newfrontleftTarget = robot.lfDrive.getCurrentPosition() + (int)(-(frontleftInches) * COUNTS_PER_INCH/6);
-            newfrontrightTarget = robot.rfDrive.getCurrentPosition() + (int)(-(frontrightInches) * COUNTS_PER_INCH/6);
-            newdownleftTarget = robot.lbDrive.getCurrentPosition() + (int)(-(downleftInches) * COUNTS_PER_INCH/6);
-            newdownrightTarget = robot.rbDrive.getCurrentPosition() + (int)(-(downrightInches) * COUNTS_PER_INCH/6);
+            newfrontleftTarget = robot.lfDrive.getCurrentPosition() + (int)(-(frontleftInches) * COUNTS_PER_INCH/7);
+            newfrontrightTarget = robot.rfDrive.getCurrentPosition() + (int)(-(frontrightInches) * COUNTS_PER_INCH/7);
+            newdownleftTarget = robot.lbDrive.getCurrentPosition() + (int)(-(downleftInches) * COUNTS_PER_INCH/7);
+            newdownrightTarget = robot.rbDrive.getCurrentPosition() + (int)(-(downrightInches) * COUNTS_PER_INCH/7);
             robot.lfDrive.setTargetPosition(newfrontleftTarget);
             robot.rfDrive.setTargetPosition(newfrontrightTarget);
             robot.lbDrive.setTargetPosition(newdownleftTarget);

@@ -133,14 +133,14 @@ public class TeleOpProgram extends LinearOpMode
                 robot.rfDrive.setPower(x);
             } else if (gamepad1.left_trigger > 0) {
                 robot.lbDrive.setPower(x);
-                robot.rbDrive.setPower(x);
+                robot.rbDrive.setPower(-x);
                 robot.lfDrive.setPower(-x);
-                robot.rfDrive.setPower(-x);
+                robot.rfDrive.setPower(x);
             } else if (gamepad1.right_trigger > 0) {
                 robot.lbDrive.setPower(-x);
-                robot.rbDrive.setPower(-x);
+                robot.rbDrive.setPower(x);
                 robot.lfDrive.setPower(x);
-                robot.rfDrive.setPower(x);
+                robot.rfDrive.setPower(-x);
             } else if (gamepad1.right_stick_x < 0) {
                 robot.lbDrive.setPower(-x);
                 robot.rbDrive.setPower(x);
