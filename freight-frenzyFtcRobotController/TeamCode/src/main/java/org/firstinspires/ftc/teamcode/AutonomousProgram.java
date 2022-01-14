@@ -169,37 +169,80 @@ public class AutonomousProgram extends LinearOpMode {
         encoderDrive(0.25, -65, 65, 65, -65, 5);
         encoderDrive(0.1, -15, -15, -15, -15, 5);
         encoderDrive(0.25, 30, 30, 30, 30, 5);
-
-        robot.arm.setPower(0.6);
-        sleep(400);
+        if(level == 1){
+            robot.Wrist.setPosition(0.6);
+            sleep(500);
+            robot.arm.setPower(0.6);
+            sleep(550);
+            robot.arm.setPower(0.0);
+            sleep(100);
 //        robot.arm.setPower(-0.05);
 //        sleep(100);
-        robot.arm.setPower(0.0);
-        robot.arm.setPower(-0.1);
-        sleep(200);
-        robot.Wrist.setPosition(0.6);
-        sleep(500);
-        robot.Dropper1.setPosition(0.25);
-        robot.Dropper2.setPosition(0.25);
-        sleep(500);
-        robot.arm.setPower(-0.4);
-        sleep(300);
-        robot.arm.setPower(0.0);
+            robot.Dropper1.setPosition(0.25);
+            robot.Dropper2.setPosition(0.25);
+            sleep(750);
+            robot.arm.setPower(-0.4);
+            sleep(400);
+            robot.arm.setPower(0.0);
 
-        robot.Dropper1.setPosition(0.0);
-        robot.Dropper2.setPosition(0.0);
-        sleep(300);
+            robot.Dropper1.setPosition(0.0);
+            robot.Dropper2.setPosition(0.0);
+            sleep(400);
+            robot.Wrist.setPosition(0.1);
+            sleep(400);
+        }else if(level == 2){
+            encoderDrive(0.1, -5, -5, -5, -5, 5);
+            robot.Wrist.setPosition(0.6);
+            sleep(500);
+            robot.arm.setPower(0.6);
+            sleep(550);
+            robot.arm.setPower(0.0);
+            sleep(100);
+//        robot.arm.setPower(-0.05);
+//        sleep(100);
+            robot.Dropper1.setPosition(0.25);
+            robot.Dropper2.setPosition(0.25);
+            sleep(750);
+            encoderDrive(0.1, -1, -1, -1, -1, 5);
 
+            robot.arm.setPower(-0.4);
+            sleep(600);
+            robot.arm.setPower(0.0);
 
-        robot.Wrist.setPosition(0.0);
-        sleep(300);
+            robot.Dropper1.setPosition(0.0);
+            robot.Dropper2.setPosition(0.0);
+            sleep(400);
+            robot.Wrist.setPosition(0.1);
+            sleep(400);
+        } else {
+            encoderDrive(0.1, -7, -7, -7, -7, 5);
+            robot.Wrist.setPosition(0.6);
+            sleep(500);
+            robot.arm.setPower(0.6);
+            sleep(550);
+            robot.arm.setPower(0.0);
+            sleep(100);
+//        robot.arm.setPower(-0.05);
+//        sleep(100);
+            robot.Dropper1.setPosition(0.25);
+            robot.Dropper2.setPosition(0.25);
+            sleep(750);
+            robot.arm.setPower(-0.4);
+            sleep(600);
+            robot.arm.setPower(0.0);
+
+            robot.Dropper1.setPosition(0.0);
+            robot.Dropper2.setPosition(0.0);
+            sleep(400);
+            robot.Wrist.setPosition(0.1);
+            sleep(400);
+        }
+
 
         encoderDrive(0.3, -5, -5, -5, -5, 5);
 
 
-        robot.arm.setPower(-0.6);
-        sleep(550);
-        robot.arm.setPower(0.0);
+
 
         switch (level){
             case(1):

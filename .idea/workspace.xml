@@ -7,12 +7,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="54702dd6-784f-4801-8486-edae8f5e46c5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/CybderWizardsFTC-Robotics2019.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CybderWizardsFTC-Robotics2019.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/freight-frenzyFtcRobotController/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/TeleOpProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/freight-frenzyFtcRobotController/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/TeleOpProgram.java" afterDir="false" />
-    </list>
+    <list default="true" id="54702dd6-784f-4801-8486-edae8f5e46c5" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
