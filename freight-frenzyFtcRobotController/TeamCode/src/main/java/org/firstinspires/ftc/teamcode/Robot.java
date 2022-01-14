@@ -184,7 +184,7 @@ public class Robot {
                 // getUpdatedRecognitions() will return null if no new information is available since
                 // the last time that call was made.
                 List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-                this.sleep(1000);
+                this.sleep(500);
                 if (updatedRecognitions != null && updatedRecognitions.size()>0) {
 //                    telemetry.addData("# Object Detected", updatedRecognitions.size());
                     // step through the list of recognitions and display boundary info.
@@ -201,7 +201,7 @@ public class Robot {
 //                    telemetry.update();
                 }
             }
-            this.sleep(1000);
+            this.sleep(500);
         }
         return currentObject;
     }

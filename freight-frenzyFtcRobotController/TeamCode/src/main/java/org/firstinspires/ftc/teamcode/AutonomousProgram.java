@@ -142,7 +142,7 @@ public class AutonomousProgram extends LinearOpMode {
         sleep(1000);*/
 
 
-        encoderDrive(0.3, 8, 8, 8, 8, 5);
+        encoderDrive(0.75, 8, 8, 8, 8, 5);
 //
         int level=1;
 
@@ -158,20 +158,20 @@ public class AutonomousProgram extends LinearOpMode {
         }
         double strafe = ((3-level)*10.5);
 
-        encoderDrive(0.25, 20+strafe, -20-strafe, -20-strafe, 20+strafe, 5);
-        encoderDrive(0.3, -4, 3, -4, 3, 5);
+        encoderDrive(0.5, 20+strafe, -20-strafe, -20-strafe, 20+strafe, 5);
+        encoderDrive(0.4, -4, 3, -4, 3, 5);
 
         robot.carousel.setPower(-0.5);
         sleep(2500);
         robot.carousel.setPower(-0.0);
 
-        encoderDrive(0.3, 3, -3, 3, -3, 5);
-        encoderDrive(0.25, -65, 65, 65, -65, 5);
-        encoderDrive(0.1, -15, -15, -15, -15, 5);
-        encoderDrive(0.25, 30, 30, 30, 30, 5);
+        encoderDrive(0.4, 3, -3, 3, -3, 5);
+        encoderDrive(0.7, -65, 65, 65, -65, 5);
+        encoderDrive(0.2, -20, -20, -20, -20, 5);
+        encoderDrive(0.5, 25, 25, 25, 25, 5);
         if(level == 1){
             robot.Wrist.setPosition(0.6);
-            sleep(500);
+            sleep(750);
             robot.arm.setPower(0.6);
             sleep(550);
             robot.arm.setPower(0.0);
@@ -181,8 +181,8 @@ public class AutonomousProgram extends LinearOpMode {
             robot.Dropper1.setPosition(0.25);
             robot.Dropper2.setPosition(0.25);
             sleep(750);
-            robot.arm.setPower(-0.4);
-            sleep(400);
+            robot.arm.setPower(-0.7);
+            sleep(600);
             robot.arm.setPower(0.0);
 
             robot.Dropper1.setPosition(0.0);
@@ -204,18 +204,16 @@ public class AutonomousProgram extends LinearOpMode {
             robot.Dropper2.setPosition(0.25);
             sleep(750);
             encoderDrive(0.1, -1, -1, -1, -1, 5);
-
-            robot.arm.setPower(-0.4);
-            sleep(600);
+            robot.arm.setPower(-0.8);
+            sleep(800);
             robot.arm.setPower(0.0);
-
             robot.Dropper1.setPosition(0.0);
             robot.Dropper2.setPosition(0.0);
-            sleep(400);
+            sleep(500);
             robot.Wrist.setPosition(0.1);
             sleep(400);
         } else {
-            encoderDrive(0.1, -7, -7, -7, -7, 5);
+            encoderDrive(0.1, -10, -10, -10, -10, 5);
             robot.Wrist.setPosition(0.6);
             sleep(500);
             robot.arm.setPower(0.6);
@@ -227,8 +225,8 @@ public class AutonomousProgram extends LinearOpMode {
             robot.Dropper1.setPosition(0.25);
             robot.Dropper2.setPosition(0.25);
             sleep(750);
-            robot.arm.setPower(-0.4);
-            sleep(600);
+            robot.arm.setPower(-0.8);
+            sleep(800);
             robot.arm.setPower(0.0);
 
             robot.Dropper1.setPosition(0.0);
@@ -240,6 +238,8 @@ public class AutonomousProgram extends LinearOpMode {
 
 
         encoderDrive(0.3, -5, -5, -5, -5, 5);
+        encoderDrive(0.7, 65, -65, -65, 65, 5);
+
 
 
 
