@@ -30,13 +30,11 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
-import org.firstinspires.ftc.teamcode.Robot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,9 +66,9 @@ import java.util.List;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="AutoRedCam", group="Pushbot")
+@Autonomous(name="AutoBlueCam", group="Pushbot")
 //@Disabled
-public class AutonomousProgram extends LinearOpMode {
+public class AutonomousProgram2 extends LinearOpMode {
 
     /* Declare OpMode members. */
     Robot robot   = new Robot();
@@ -153,20 +151,20 @@ public class AutonomousProgram extends LinearOpMode {
             if((detectedObject.size()>0 && detectedObject.get(0).getLabel() != "Marker")||(detectedObject.size()==0)){
                 break;
             }
-            encoderDrive(0.25, 10.5, -10.5, -10.5, 10.5, 5);
+            encoderDrive(0.25, -10.5, 10.5, 10.5, -10.5, 5);
 
         }
         double strafe = ((3-level)*10.5);
 
-        encoderDrive(0.5, 20+strafe, -20-strafe, -20-strafe, 20+strafe, 5);
-        encoderDrive(0.4, -4, 3, -4, 3, 5);
+        encoderDrive(0.5, -20-strafe, 20+strafe, 20+strafe, -20-strafe, 5);
+        encoderDrive(0.4, 3, -4, 3, -4, 5);
 
-        robot.carousel.setPower(-0.5);
+        robot.carousel.setPower(0.5);
         sleep(2500);
         robot.carousel.setPower(-0.0);
 
-        encoderDrive(0.4, 3, -3, 3, -3, 5);
-        encoderDrive(0.7, -65, 65, 65, -65, 5);
+        encoderDrive(0.4, -3, 3, -3, 3, 5);
+        encoderDrive(0.7, 65, -65, -65, 65, 5);
         encoderDrive(0.2, -20, -20, -20, -20, 5);
         encoderDrive(0.5, 25, 25, 25, 25, 5);
         if(level == 1){
@@ -238,7 +236,7 @@ public class AutonomousProgram extends LinearOpMode {
 
 
         encoderDrive(0.3, -5, -5, -5, -5, 5);
-        encoderDrive(0.7, 65, -65, -65, 65, 5);
+        encoderDrive(0.7, -65, 65, 65, -65, 5);
 
 
 
