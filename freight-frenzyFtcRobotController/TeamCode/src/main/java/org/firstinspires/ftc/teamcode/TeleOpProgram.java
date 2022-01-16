@@ -236,13 +236,13 @@ public class TeleOpProgram extends LinearOpMode
             robot.arm.setPower((gamepad2.right_trigger / 1.5) - (gamepad2.left_trigger / 1.5));
             //robot.carousel.setPower(((gamepad2.right_bumper) ? 1.0: 0.0)-((gamepad2.left_bumper) ? -1.0: 0.0));
             if (gamepad2.dpad_right) {
-                robot.carousel.setPower(1.0);
+                robot.carousel.setPower(0.5);
             } else {
                 robot.carousel.setPower(0.0);
             }
 
             if (gamepad2.dpad_left) {
-                robot.carousel.setPower(-1.0);
+                robot.carousel.setPower(-0.8);
             } else {
                 robot.carousel.setPower(0.0);
             }

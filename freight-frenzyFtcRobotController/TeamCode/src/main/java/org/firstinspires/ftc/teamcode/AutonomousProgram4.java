@@ -127,7 +127,6 @@ public class AutonomousProgram4 extends LinearOpMode {
 
         robot.Dropper1.setPosition(0.0);
         robot.Dropper2.setPosition(0.0);
-        robot.Wrist.setPosition(0.0);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();

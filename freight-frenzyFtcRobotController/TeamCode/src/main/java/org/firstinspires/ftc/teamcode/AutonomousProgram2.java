@@ -129,7 +129,6 @@ public class AutonomousProgram2 extends LinearOpMode {
 
         robot.Dropper1.setPosition(0.0);
         robot.Dropper2.setPosition(0.0);
-        robot.Wrist.setPosition(0.0);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -156,7 +155,7 @@ public class AutonomousProgram2 extends LinearOpMode {
         }
         double strafe = ((3-level)*10.5);
 
-        encoderDrive(0.5, -20-strafe, 20+strafe, 20+strafe, -20-strafe, 5);
+        encoderDrive(0.5, -35-strafe, 35+strafe, 35+strafe, -28-strafe, 5);
         encoderDrive(0.4, 3, -4, 3, -4, 5);
 
         robot.carousel.setPower(0.5);
@@ -164,7 +163,7 @@ public class AutonomousProgram2 extends LinearOpMode {
         robot.carousel.setPower(-0.0);
 
         encoderDrive(0.4, -3, 3, -3, 3, 5);
-        encoderDrive(0.7, 65, -65, -65, 65, 5);
+        encoderDrive(0.7, 55, -55, -55, 65, 5);
         encoderDrive(0.2, -20, -20, -20, -20, 5);
         encoderDrive(0.5, 25, 25, 25, 25, 5);
         if(level == 1){
