@@ -228,16 +228,18 @@ public class TeleOpProgramT1 extends LinearOpMode
 
 //            robot.slider.setPower((gamepad2.right_trigger / 1.5) - (gamepad2.left_trigger / 1.5));
             //robot.carousel.setPower(((gamepad2.right_bumper) ? 1.0: 0.0)-((gamepad2.left_bumper) ? -1.0: 0.0));
-            if (gamepad2.dpad_right) {
-                robot.intake.setPower(1.0);
-            } else {
-                robot.intake.setPower(0.0);
-            }
-            if (gamepad2.dpad_left) {
-                robot.intake.setPower(-1);
-            } else {
-                robot.intake.setPower(0.0);
-            }
+//            if (gamepad2.right_stick_y>0) {
+//                robot.intake.setPower(1);
+//            } else {
+//                robot.intake.setPower(0.0);
+//            }
+//            if (gamepad2.dpad_left) {
+//                robot.intake.setPower(-1);
+//            } else {
+//                robot.intake.setPower(0.0);
+//            }
+
+            robot.intake.setPower(gamepad2.right_stick_y);
             if (gamepad2.dpad_up) {
                 robot.slider.setPower(-1);
             } else {

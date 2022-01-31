@@ -61,7 +61,7 @@ public class RobotT1 {
         rbDrive.setDirection(DcMotor.Direction.REVERSE);
 
         slider.setDirection(DcMotorSimple.Direction.REVERSE);
-        intake.setDirection(DcMotorSimple.Direction.REVERSE);
+        intake.setDirection(DcMotorSimple.Direction.FORWARD);
         // intakeLifter.setDirection(DcMotor.Direction.FORWARD);
         //Dropper1.setPosition(1.0);
     }
