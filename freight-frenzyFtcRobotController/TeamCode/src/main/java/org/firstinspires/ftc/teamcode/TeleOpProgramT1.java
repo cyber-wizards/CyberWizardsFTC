@@ -259,6 +259,8 @@ public class TeleOpProgramT1 extends LinearOpMode
                 robot.carousel.setPower(0.0);
             }
 
+            robot.arm.setPower(gamepad2.left_stick_y/2);
+
             if(gamepad2.x){
                 robot.dropper.setPosition(0.0);
             }else{

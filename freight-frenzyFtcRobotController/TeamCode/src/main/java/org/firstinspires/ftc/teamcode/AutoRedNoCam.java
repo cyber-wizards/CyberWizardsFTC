@@ -34,8 +34,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,9 +64,9 @@ import java.util.List;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="AutoRedCam", group="Pushbot")
+@Autonomous(name="AutoRedNoCam", group="Pushbot")
 //@Disabled
-public class AutonomousProgram extends LinearOpMode {
+public class AutoRedNoCam extends LinearOpMode {
 
     /* Declare OpMode members. */
     RobotOld robot   = new RobotOld();
@@ -141,21 +139,9 @@ public class AutonomousProgram extends LinearOpMode {
 
         encoderDrive(0.75, 8, 8, 8, 8, 5);
 //
-        int level=1;
 
-        for(int i=0;i<3;i++) {
-            level = i+1;
-            sleep(500);
-            List<Recognition> detectedObject = robot.detectObject(hardwareMap);
-            if((detectedObject.size()>0 && detectedObject.get(0).getLabel() != "Marker")||(detectedObject.size()==0)){
-                break;
-            }
-            encoderDrive(0.25, 10.5, -10.5, -10.5, 10.5, 5);
 
-        }
-        double strafe = ((3-level)*10.5);
-
-        encoderDrive(0.5, 20+strafe, -20-strafe, -20-strafe, 20+strafe, 5);
+        encoderDrive(0.5, 45.5, -45.5, -45.5, 45.5, 5);
         encoderDrive(0.4, -4, 3, -4, 3, 5);
 
         robot.carousel.setPower(-0.5);
@@ -163,123 +149,53 @@ public class AutonomousProgram extends LinearOpMode {
         robot.carousel.setPower(-0.0);
 
         encoderDrive(0.4, 3, -3, 3, -3, 5);
-        encoderDrive(0.7, -65, 65, 65, -65, 5);
-        encoderDrive(0.2, -20, -20, -20, -20, 5);
-        encoderDrive(0.5, 25, 25, 25, 25, 5);
-        if(level == 1){
-            robot.Wrist.setPosition(0.6);
-            sleep(750);
-            robot.arm.setPower(0.6);
-            sleep(550);
-            robot.arm.setPower(0.0);
-            sleep(100);
-//        robot.arm.setPower(-0.05);
-//        sleep(100);
-            robot.Dropper1.setPosition(0.25);
-            robot.Dropper2.setPosition(0.25);
-            sleep(750);
-            robot.arm.setPower(-0.7);
-            sleep(600);
-            robot.arm.setPower(0.0);
 
-            robot.Dropper1.setPosition(0.0);
-            robot.Dropper2.setPosition(0.0);
-            sleep(400);
-            robot.Wrist.setPosition(0.1);
-            sleep(400);
-        }else if(level == 2){
-            encoderDrive(0.1, -5, -5, -5, -5, 5);
-            robot.Wrist.setPosition(0.6);
-            sleep(500);
-            robot.arm.setPower(0.6);
-            sleep(550);
-            robot.arm.setPower(0.0);
-            sleep(100);
-//        robot.arm.setPower(-0.05);
-//        sleep(100);
-            robot.Dropper1.setPosition(0.25);
-            robot.Dropper2.setPosition(0.25);
-            sleep(750);
-            encoderDrive(0.1, -1, -1, -1, -1, 5);
-            robot.arm.setPower(-0.8);
-            sleep(800);
-            robot.arm.setPower(0.0);
-            robot.Dropper1.setPosition(0.0);
-            robot.Dropper2.setPosition(0.0);
-            sleep(500);
-            robot.Wrist.setPosition(0.1);
-            sleep(400);
-        } else {
-            encoderDrive(0.1, -10, -10, -10, -10, 5);
-            robot.Wrist.setPosition(0.6);
-            sleep(500);
-            robot.arm.setPower(0.6);
-            sleep(550);
-            robot.arm.setPower(0.0);
-            sleep(100);
-//        robot.arm.setPower(-0.05);
-//        sleep(100);
-            robot.Dropper1.setPosition(0.25);
-            robot.Dropper2.setPosition(0.25);
-            sleep(750);
-            robot.arm.setPower(-0.8);
-            sleep(800);
-            robot.arm.setPower(0.0);
-
-            robot.Dropper1.setPosition(0.0);
-            robot.Dropper2.setPosition(0.0);
-            sleep(400);
-            robot.Wrist.setPosition(0.1);
-            sleep(400);
-        }
-
-
-        encoderDrive(0.3, -5, -5, -5, -5, 5);
-        encoderDrive(0.7, 65, -65, -65, 65, 5);
+        encoderDrive(0.5, 22, 22, 22, 22, 5);
+        encoderDrive(0.5, 5, -5, -5, 5, 5);
 
 
 
 
 
-        switch (level){
-            case(1):
-//                sleep(1000);
-//                robot.arm.setPower(0.6);
-//                sleep(1000);
-////        robot.arm.setPower(-0.05);
-////        sleep(100);
-//                robot.arm.setPower(0.0);
-//                robot.Wrist.setPosition(0.6);
-//                sleep(500);
-//                robot.Dropper1.setPosition(0.25);
-//                robot.Dropper2.setPosition(0.25);
-//                sleep(500);
-//                robot.arm.setPower(-0.4);
-//                sleep(300);
-//                robot.arm.setPower(0.0);
+//        switch (level){
+//            case(1):
+////                sleep(1000);
+////                robot.arm.setPower(0.6);
+////                sleep(1000);
+//////        robot.arm.setPower(-0.05);
+//////        sleep(100);
+////                robot.arm.setPower(0.0);
+////                robot.Wrist.setPosition(0.6);
+////                sleep(500);
+////                robot.Dropper1.setPosition(0.25);
+////                robot.Dropper2.setPosition(0.25);
+////                sleep(500);
+////                robot.arm.setPower(-0.4);
+////                sleep(300);
+////                robot.arm.setPower(0.0);
+////
+////                robot.Dropper1.setPosition(0.0);
+////                robot.Dropper2.setPosition(0.0);
+////                sleep(300);
+////
+////
+////                robot.Wrist.setPosition(0.0);
+////                sleep(300);
+////
+////                encoderDrive(0.3, -5, -5, -5, -5, 5);
+////
+////
+////                robot.arm.setPower(-0.6);
+////                sleep(550);
+////                robot.arm.setPower(0.0);
+//                break;
+//            case(2):
 //
-//                robot.Dropper1.setPosition(0.0);
-//                robot.Dropper2.setPosition(0.0);
-//                sleep(300);
+//                break;
+//            case(3):
 //
-//
-//                robot.Wrist.setPosition(0.0);
-//                sleep(300);
-//
-//                encoderDrive(0.3, -5, -5, -5, -5, 5);
-//
-//
-//                robot.arm.setPower(-0.6);
-//                sleep(550);
-//                robot.arm.setPower(0.0);
-                break;
-            case(2):
-
-                break;
-            case(3):
-
-                break;
-        }
+//                break;
+//        }
 
 //        robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
 //        robot.rightClaw.setPosition(0.0);

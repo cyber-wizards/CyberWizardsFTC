@@ -66,12 +66,12 @@ import java.util.List;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="AutoBlueCam", group="Pushbot")
+@Autonomous(name="AutoRedCam", group="Pushbot")
 //@Disabled
-public class AutonomousProgram2 extends LinearOpMode {
+public class AutoRedCam extends LinearOpMode {
 
     /* Declare OpMode members. */
-    RobotOld robot   = new RobotOld();
+    RobotT1 robot   = new RobotT1();
     private ElapsedTime     runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
@@ -96,7 +96,7 @@ public class AutonomousProgram2 extends LinearOpMode {
         robot.rbDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.lfDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.rfDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        robot.arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
         // Send telemetry message to signify robot waiting;
@@ -127,8 +127,8 @@ public class AutonomousProgram2 extends LinearOpMode {
                 robot.lfDrive.getCurrentPosition()+" "+
                 robot.rfDrive.getCurrentPosition());
 
-        robot.Dropper1.setPosition(0.0);
-        robot.Dropper2.setPosition(0.0);
+//        robot.Dropper1.setPosition(0.0);
+//        robot.Dropper2.setPosition(0.0);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -150,92 +150,131 @@ public class AutonomousProgram2 extends LinearOpMode {
             if((detectedObject.size()>0 && detectedObject.get(0).getLabel() != "Marker")||(detectedObject.size()==0)){
                 break;
             }
-            encoderDrive(0.25, -10.5, 10.5, 10.5, -10.5, 5);
+            encoderDrive(0.25, 10.5, -10.5, -10.5, 10.5, 5);
 
         }
         double strafe = ((3-level)*10.5);
 
-        encoderDrive(0.5, -35-strafe, 35+strafe, 35+strafe, -28-strafe, 5);
-        encoderDrive(0.4, 3, -4, 3, -4, 5);
+        encoderDrive(0.5, 20+strafe, -20-strafe, -20-strafe, 20+strafe, 5);
+        encoderDrive(0.4, -4, 3, -4, 3, 5);
 
-        robot.carousel.setPower(0.5);
+        robot.carousel.setPower(-0.5);
         sleep(2500);
         robot.carousel.setPower(-0.0);
 
-        encoderDrive(0.4, -3, 3, -3, 3, 5);
-        encoderDrive(0.7, 55, -55, -55, 65, 5);
+        encoderDrive(0.4, 3, -3, 3, -3, 5);
+        encoderDrive(0.7, -65, 65, 65, -65, 5);
         encoderDrive(0.2, -20, -20, -20, -20, 5);
         encoderDrive(0.5, 25, 25, 25, 25, 5);
         if(level == 1){
-            robot.Wrist.setPosition(0.6);
-            sleep(750);
-            robot.arm.setPower(0.6);
-            sleep(550);
-            robot.arm.setPower(0.0);
-            sleep(100);
-//        robot.arm.setPower(-0.05);
-//        sleep(100);
-            robot.Dropper1.setPosition(0.25);
-            robot.Dropper2.setPosition(0.25);
-            sleep(750);
-            robot.arm.setPower(-0.7);
-            sleep(600);
-            robot.arm.setPower(0.0);
+//            robot.Wrist.setPosition(0.6);
+//            sleep(750);
+//            robot.arm.setPower(0.6);
+//            sleep(550);
+//            robot.arm.setPower(0.0);
+//            sleep(100);
+////        robot.arm.setPower(-0.05);
+////        sleep(100);
+//            robot.Dropper1.setPosition(0.25);
+//            robot.Dropper2.setPosition(0.25);
+//            sleep(750);
+//            robot.arm.setPower(-0.7);
+//            sleep(600);
+//            robot.arm.setPower(0.0);
+//
+//            robot.Dropper1.setPosition(0.0);
+//            robot.Dropper2.setPosition(0.0);
+//            sleep(400);
+//            robot.Wrist.setPosition(0.1);
+//            sleep(400);
+            robot.slider.setPower(1.0);
 
-            robot.Dropper1.setPosition(0.0);
-            robot.Dropper2.setPosition(0.0);
-            sleep(400);
-            robot.Wrist.setPosition(0.1);
-            sleep(400);
-        }else if(level == 2){
-            encoderDrive(0.1, -5, -5, -5, -5, 5);
-            robot.Wrist.setPosition(0.6);
-            sleep(500);
-            robot.arm.setPower(0.6);
-            sleep(550);
-            robot.arm.setPower(0.0);
-            sleep(100);
-//        robot.arm.setPower(-0.05);
-//        sleep(100);
-            robot.Dropper1.setPosition(0.25);
-            robot.Dropper2.setPosition(0.25);
+            sleep(XDLMAO);
+
+            robot.dropper.setPosition(0.0);
+
             sleep(750);
-            encoderDrive(0.1, -1, -1, -1, -1, 5);
-            robot.arm.setPower(-0.8);
-            sleep(800);
-            robot.arm.setPower(0.0);
-            robot.Dropper1.setPosition(0.0);
-            robot.Dropper2.setPosition(0.0);
+
+            robot.dropper.setPosition(1.0);
+
             sleep(500);
-            robot.Wrist.setPosition(0.1);
-            sleep(400);
+
+            robot.slider.setPower(-1.0);
+        }else if(level == 2){
+//            encoderDrive(0.1, -5, -5, -5, -5, 5);
+//            robot.Wrist.setPosition(0.6);
+//            sleep(500);
+//            robot.arm.setPower(0.6);
+//            sleep(550);
+//            robot.arm.setPower(0.0);
+//            sleep(100);
+////        robot.arm.setPower(-0.05);
+////        sleep(100);
+//            robot.Dropper1.setPosition(0.25);
+//            robot.Dropper2.setPosition(0.25);
+//            sleep(750);
+//            encoderDrive(0.1, -1, -1, -1, -1, 5);
+//            robot.arm.setPower(-0.8);
+//            sleep(800);
+//            robot.arm.setPower(0.0);
+//            robot.Dropper1.setPosition(0.0);
+//            robot.Dropper2.setPosition(0.0);
+//            sleep(500);
+//            robot.Wrist.setPosition(0.1);
+//            sleep(400);
+            robot.slider.setPower(1.0);
+
+            sleep(XDLMAO);
+
+            robot.dropper.setPosition(0.0);
+
+            sleep(750);
+
+            robot.dropper.setPosition(1.0);
+
+            sleep(500);
+
+            robot.slider.setPower(-1.0);
         } else {
             encoderDrive(0.1, -10, -10, -10, -10, 5);
-            robot.Wrist.setPosition(0.6);
-            sleep(500);
-            robot.arm.setPower(0.6);
-            sleep(550);
-            robot.arm.setPower(0.0);
-            sleep(100);
-//        robot.arm.setPower(-0.05);
-//        sleep(100);
-            robot.Dropper1.setPosition(0.25);
-            robot.Dropper2.setPosition(0.25);
-            sleep(750);
-            robot.arm.setPower(-0.8);
-            sleep(800);
-            robot.arm.setPower(0.0);
+//            robot.Wrist.setPosition(0.6);
+//            sleep(500);
+//            robot.arm.setPower(0.6);
+//            sleep(550);
+//            robot.arm.setPower(0.0);
+//            sleep(100);
+////        robot.arm.setPower(-0.05);
+////        sleep(100);
+//            robot.Dropper1.setPosition(0.25);
+//            robot.Dropper2.setPosition(0.25);
+//            sleep(750);
+//            robot.arm.setPower(-0.8);
+//            sleep(800);
+//            robot.arm.setPower(0.0);
+//
+//            robot.Dropper1.setPosition(0.0);
+//            robot.Dropper2.setPosition(0.0);
+//            sleep(400);
+//            robot.Wrist.setPosition(0.1);
+//            sleep(400);
+            robot.slider.setPower(1.0);
 
-            robot.Dropper1.setPosition(0.0);
-            robot.Dropper2.setPosition(0.0);
-            sleep(400);
-            robot.Wrist.setPosition(0.1);
-            sleep(400);
+            sleep(XDLMAO);
+
+            robot.dropper.setPosition(0.0);
+
+            sleep(750);
+
+            robot.dropper.setPosition(1.0);
+
+            sleep(500);
+
+            robot.slider.setPower(-1.0);
         }
 
 
         encoderDrive(0.3, -5, -5, -5, -5, 5);
-        encoderDrive(0.7, -65, 65, 65, -65, 5);
+        encoderDrive(0.7, 65, -65, -65, 65, 5);
 
 
 

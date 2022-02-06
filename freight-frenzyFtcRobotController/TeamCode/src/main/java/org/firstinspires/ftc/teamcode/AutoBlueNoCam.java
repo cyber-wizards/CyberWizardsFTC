@@ -66,7 +66,7 @@ import java.util.List;
 
 @Autonomous(name="AutoBlueNoCam", group="Pushbot")
 //@Disabled
-public class AutonomousProgram4 extends LinearOpMode {
+public class AutoBlueNoCam extends LinearOpMode {
 
     /* Declare OpMode members. */
     RobotOld robot   = new RobotOld();

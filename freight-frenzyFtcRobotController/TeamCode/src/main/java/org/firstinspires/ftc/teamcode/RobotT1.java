@@ -35,6 +35,7 @@ public class RobotT1 {
     public DcMotor slider = null;
     public DcMotor intake = null;
     public Servo dropper = null;
+    public DcMotor arm = null;
     public WebcamName Webcam = null;
     public DcMotor carousel = null;
 //    public Servo Dropper1 = null;
@@ -82,6 +83,8 @@ public class RobotT1 {
 
         carousel = hardwareMap.get(DcMotor.class, "carousel");
 
+        arm = hardwareMap.get(DcMotor.class, "arm");
+
         dropper = hardwareMap.get(Servo.class, "dropper");
 
 
@@ -96,6 +99,8 @@ public class RobotT1 {
 
         slider.setDirection(DcMotorSimple.Direction.REVERSE);
         intake.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        arm.setDirection(DcMotorSimple.Direction.FORWARD);
 
         //change this later ig
         carousel.setDirection(DcMotorSimple.Direction.FORWARD);
