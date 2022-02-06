@@ -71,7 +71,7 @@ import java.util.List;
 public class AutonomousProgram2 extends LinearOpMode {
 
     /* Declare OpMode members. */
-    Robot robot   = new Robot();
+    RobotOld robot   = new RobotOld();
     private ElapsedTime     runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder

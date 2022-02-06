@@ -1,16 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.exception.RobotCoreException;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="TeleOpProgram", group="Linear Opmode")
 public class TeleOpProgram extends LinearOpMode
@@ -18,7 +11,7 @@ public class TeleOpProgram extends LinearOpMode
 
 // Declare OpMode members.
 
-    Robot robot = new Robot();
+    RobotOld robot = new RobotOld();
 
     private ElapsedTime runtime = new ElapsedTime();
 

@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="AutoPlace", group="Pushbot")
 public class AutoPlace extends LinearOpMode {
-    Robot robot   = new Robot();
+    RobotOld robot   = new RobotOld();
     private ElapsedTime runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder

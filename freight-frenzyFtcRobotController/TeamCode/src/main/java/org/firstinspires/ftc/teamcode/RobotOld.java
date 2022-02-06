@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Robot {
+public class RobotOld {
     // Declare OpMode members.
     public ElapsedTime runtime = new ElapsedTime();
     public DcMotor lfDrive = null;

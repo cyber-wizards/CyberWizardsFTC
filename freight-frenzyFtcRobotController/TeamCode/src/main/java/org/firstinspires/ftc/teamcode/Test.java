@@ -1,20 +1,15 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="Test", group="Iterative Opmode")
 public class Test extends OpMode
 {
     // Declare OpMode members.
 
-    Robot robot = new Robot();
+    RobotOld robot = new RobotOld();
     private ElapsedTime runtime = new ElapsedTime();
 
     // private DcMotor intakeLifter = null;

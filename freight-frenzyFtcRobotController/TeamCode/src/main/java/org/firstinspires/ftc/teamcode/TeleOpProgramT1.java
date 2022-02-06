@@ -251,6 +251,20 @@ public class TeleOpProgramT1 extends LinearOpMode
                 robot.slider.setPower(0.0);
             }
 
+            if(gamepad2.right_bumper){
+                robot.carousel.setPower(1.0);
+            }else if(gamepad2.left_bumper){
+                robot.carousel.setPower(-1.0);
+            }else{
+                robot.carousel.setPower(0.0);
+            }
+
+            if(gamepad2.x){
+                robot.dropper.setPosition(0.0);
+            }else{
+                robot.dropper.setPosition(1.0);
+            }
+
 //            todo monkey
 //            if(gamepad2.a){
 //                robot.Dropper1.setPosition(0.25);

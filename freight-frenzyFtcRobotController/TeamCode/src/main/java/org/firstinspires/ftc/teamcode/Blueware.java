@@ -34,8 +34,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +69,7 @@ import java.util.List;
 public class Blueware extends LinearOpMode {
 
     /* Declare OpMode members. */
-    Robot robot   = new Robot();
+    RobotOld robot   = new RobotOld();
     private ElapsedTime     runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
